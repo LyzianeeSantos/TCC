@@ -14,23 +14,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Agendamento {
-  id         Int      @id @default(autoincrement())
-  data       DateTime
-  hora       String
-  cliente_id Int
-  servico    Servico   @relation(fields: [servico_id], references: [id])
-  servico_id Int
-  status     String
-
-  @@map("agendamentos")
+model Cliente {
+  id            Int            @id @default(autoincrement())
+  nome          String
+  email         String         @unique
+  telefone      String
+  agendamentos  Agendamento[]  // Relação com agendamentos
 }
 
 model Servico {
-  id        Int          @id @default(autoincrement())
-  nome      String
-  descricao String
-  preco     Float
-  agendamentos Agendamento[] // Relacionamento com agendamentos
+  id            Int            @id @default(autoincrement())
+  nome          String
+  descricao     String
+  preco         Float
+  agendamentos  Agendamento[]  // Relação com agendamentos
+}
+
+model Agendamento {
+  id         Int       @id @default(autoincrement())
+  data       DateTime
+  hora       String
+  status     String
+
+  // Chave estrangeira para Cliente
+  clienteId  Int
+  cliente    Cliente   @relation(fields: [clienteId], references: [id])
+
+  // Chave estrangeira para Servico
+  servicoId  Int
+  servico    Servico   @relation(fields: [servicoId], references: [id])
 }
 
