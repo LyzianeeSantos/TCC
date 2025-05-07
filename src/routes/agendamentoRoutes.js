@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const agendamentoController = require('../controllers/agendamentoController');
+const agendamentoController = require('../controllers/agedamentoController');
 
 // Rotas CRUD para Agendamentos
 router.get('/', agendamentoController.listarTodos);
