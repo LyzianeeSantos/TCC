@@ -1,50 +1,64 @@
-const Cliente = require('../models/Cliente');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
+const createCliente = async (req, res) => {
+  try {
+    const { nome, email, telefone } = req.body;
+    const novo = await prisma.cliente.create({ data: { nome, email, telefone } });
+    res.status(201).json(novo);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao criar cliente' });
+  }
+};
+
+const getAllClientes = async (req, res) => {
+  try {
+    const clientes = await prisma.cliente.findMany();
+    res.json(clientes);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar clientes' });
+  }
+};
+
+const getClienteById = async (req, res) => {
+  try {
+    const cliente = await prisma.cliente.findUnique({
+      where: { id: parseInt(req.params.id) },
+    });
+    if (!cliente) return res.status(404).json({ error: 'Cliente não encontrado' });
+    res.json(cliente);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar cliente' });
+  }
+};
+
+const updateCliente = async (req, res) => {
+  try {
+    const cliente = await prisma.cliente.update({
+      where: { id: parseInt(req.params.id) },
+      data: req.body,
+    });
+    res.json(cliente);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao atualizar cliente' });
+  }
+};
+
+const deleteCliente = async (req, res) => {
+  try {
+    await prisma.cliente.delete({
+      where: { id: parseInt(req.params.id) },
+    });
+    res.json({ message: 'Cliente excluído' });
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao excluir cliente' });
+  }
+};
 
 module.exports = {
-  listarTodos: async (req, res) => {
-    try {
-      const clientes = await Cliente.listarTodos();
-      res.json(clientes);
-    } catch (err) {
-      res.status(500).json({ erro: 'Erro ao buscar clientes' });
-    }
-  },
-
-  buscarPorId: async (req, res) => {
-    try {
-      const cliente = await Cliente.buscarPorId(req.params.id);
-      if (cliente) res.json(cliente);
-      else res.status(404).json({ erro: 'Cliente não encontrado' });
-    } catch (err) {
-      res.status(500).json({ erro: 'Erro ao buscar cliente' });
-    }
-  },
-
-  criar: async (req, res) => {
-    try {
-      const novoCliente = await Cliente.criar(req.body);
-      res.status(201).json(novoCliente);
-    } catch (err) {
-      res.status(400).json({ erro: 'Erro ao criar cliente' });
-    }
-  },
-
-  atualizar: async (req, res) => {
-    try {
-      const clienteAtualizado = await Cliente.atualizar(req.params.id, req.body);
-      if (clienteAtualizado) res.json(clienteAtualizado);
-      else res.status(404).json({ erro: 'Cliente não encontrado' });
-    } catch (err) {
-      res.status(400).json({ erro: 'Erro ao atualizar cliente' });
-    }
-  },
-
-  deletar: async (req, res) => {
-    try {
-      await Cliente.deletar(req.params.id);
-      res.json({ mensagem: 'Cliente deletado com sucesso' });
-    } catch (err) {
-      res.status(500).json({ erro: 'Erro ao deletar cliente' });
-    }
-  }
+  createCliente,
+  getAllClientes,
+  getClienteById,
+  updateCliente,
+  deleteCliente,
 };

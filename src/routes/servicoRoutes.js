@@ -9,10 +9,10 @@ const {
 } = require('../controllers/servicoController');
 
 // Rotas
-router.post('/servicos', createServico);
-router.get('/servicos', getAllServicos);
-router.get('/servicos/:id', getServicoById);
-router.put('/servicos/:id', updateServico);
-router.delete('/servicos/:id', deleteServico);
+router.get('/', getAllServicos);
+router.post('/', createServico);
+router.get('/:id', getServicoById);
+router.put('/:id', updateServico);
+router.delete('/:id', deleteServico);
 
 module.exports = router;

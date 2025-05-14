@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 // Rotas
 app.use('/clientes', clienteRoutes);
 app.use('/agendamentos', agendamentoRoutes);
-app.use('/servico', servicoRoutes);
+app.use('/servicos', servicoRoutes);
 
 // Rota raiz
 app.get('/', (req, res) => {

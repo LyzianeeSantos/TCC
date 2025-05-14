@@ -3,10 +3,10 @@ const router = express.Router();
 const agendamentoController = require('../controllers/agedamentoController');
 
 // Rotas CRUD para Agendamentos
-router.get('/', agendamentoController.listarTodos);
-router.get('/:id', agendamentoController.buscarPorId);
-router.post('/', agendamentoController.criar);
-router.put('/:id', agendamentoController.atualizar);
-router.delete('/:id', agendamentoController.deletar);
+router.get('/', agendamentoController.getAllAgendamentos);
+router.get('/:id', agendamentoController.getAgendamentoById);
+router.post('/', agendamentoController.createAgendamento);
+router.put('/:id', agendamentoController.updateAgendamento);
+router.delete('/:id', agendamentoController.deleteAgendamento);
 
 module.exports = router;

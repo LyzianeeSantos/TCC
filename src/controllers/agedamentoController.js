@@ -1,61 +1,78 @@
-const { Agendamento } = require('../models/Agendamento');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
+const createAgendamento = async (req, res) => {
+  try {
+    const { data, hora, status, clienteId, servicoId } = req.body;
+
+    const novo = await prisma.agendamento.create({
+      data: {
+        data: new Date(data),
+        hora,
+        status,
+        clienteId,
+        servicoId,
+      },
+    });
+
+    res.status(201).json(novo);
+  } catch (err) {
+    console.error('[ERRO PRISMA]', err);
+    res.status(500).json({ error: 'Erro ao criar agendamento' });
+  }
+};
+
+const getAllAgendamentos = async (req, res) => {
+  try {
+    const agendamentos = await prisma.agendamento.findMany({
+      include: { cliente: true, servico: true },
+    });
+    res.json(agendamentos);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar agendamentos' });
+  }
+};
+
+const getAgendamentoById = async (req, res) => {
+  try {
+    const agendamento = await prisma.agendamento.findUnique({
+      where: { id: parseInt(req.params.id) },
+      include: { cliente: true, servico: true },
+    });
+    if (!agendamento) return res.status(404).json({ error: 'Agendamento não encontrado' });
+    res.json(agendamento);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar agendamento' });
+  }
+};
+
+const updateAgendamento = async (req, res) => {
+  try {
+    const agendamento = await prisma.agendamento.update({
+      where: { id: parseInt(req.params.id) },
+      data: req.body,
+    });
+    res.json(agendamento);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao atualizar agendamento' });
+  }
+};
+
+const deleteAgendamento = async (req, res) => {
+  try {
+    await prisma.agendamento.delete({
+      where: { id: parseInt(req.params.id) },
+    });
+    res.json({ message: 'Agendamento excluído' });
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao excluir agendamento' });
+  }
+};
 
 module.exports = {
-  async listarTodos(req, res) {
-    try {
-      const agendamentos = await Agendamento.findAll();
-      res.json(agendamentos);
-    } catch (error) {
-      res.status(500).json({ erro: 'Erro ao buscar agendamentos.' });
-    }
-  },
-
-  async buscarPorId(req, res) {
-    try {
-      const agendamento = await Agendamento.findByPk(req.params.id);
-      if (!agendamento) {
-        return res.status(404).json({ erro: 'Agendamento não encontrado.' });
-      }
-      res.json(agendamento);
-    } catch (error) {
-      res.status(500).json({ erro: 'Erro ao buscar agendamento.' });
-    }
-  },
-
-  async criar(req, res) {
-    try {
-      const { clienteId, servico, data, hora } = req.body;
-      const novoAgendamento = await Agendamento.create({ clienteId, servico, data, hora });
-      res.status(201).json(novoAgendamento);
-    } catch (error) {
-      res.status(400).json({ erro: 'Erro ao criar agendamento.' });
-    }
-  },
-
-  async atualizar(req, res) {
-    try {
-      const { clienteId, servico, data, hora } = req.body;
-      const agendamento = await Agendamento.findByPk(req.params.id);
-      if (!agendamento) {
-        return res.status(404).json({ erro: 'Agendamento não encontrado.' });
-      }
-      await agendamento.update({ clienteId, servico, data, hora });
-      res.json(agendamento);
-    } catch (error) {
-      res.status(400).json({ erro: 'Erro ao atualizar agendamento.' });
-    }
-  },
-
-  async deletar(req, res) {
-    try {
-      const agendamento = await Agendamento.findByPk(req.params.id);
-      if (!agendamento) {
-        return res.status(404).json({ erro: 'Agendamento não encontrado.' });
-      }
-      await agendamento.destroy();
-      res.status(204).send();
-    } catch (error) {
-      res.status(500).json({ erro: 'Erro ao deletar agendamento.' });
-    }
-  },
+  createAgendamento,
+  getAllAgendamentos,
+  getAgendamentoById,
+  updateAgendamento,
+  deleteAgendamento,
 };
