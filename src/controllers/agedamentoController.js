@@ -3,7 +3,11 @@ const prisma = new PrismaClient();
 
 const createAgendamento = async (req, res) => {
   try {
-    const { data, hora, status, clienteId, servicoId } = req.body;
+    const { data, hora, status, clienteId, servicoId, localizacao } = req.body;
+
+    if (!localizacao || ( localizacao !== 'Unidade 1' && localizacao !== 'Unidade 2')) {
+      return res.status(400).json({error: 'Localização inválida. Escolha entre "Unidade 1" ou "Unidade 2"'})
+    }
 
     const novo = await prisma.agendamento.create({
       data: {
@@ -12,6 +16,7 @@ const createAgendamento = async (req, res) => {
         status,
         clienteId,
         servicoId,
+        localizacao
       },
     });
 

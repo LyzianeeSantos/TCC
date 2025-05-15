@@ -13,6 +13,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Usuario {
+  id       Int     @id @default(autoincrement())
+  nome     String
+  email    String  @unique
+  telefone String
+  senha    String
+  tipo     String  // 'cliente' ou 'admin'
+}
+
+
 model Cliente {
   id            Int            @id @default(autoincrement())
   nome          String
@@ -34,6 +44,7 @@ model Agendamento {
   data       DateTime
   hora       String
   status     String
+  localizacao String
 
   // Chave estrangeira para Cliente
   clienteId  Int

@@ -1,1 +1,0 @@
-// Roteador principal da aplicação
