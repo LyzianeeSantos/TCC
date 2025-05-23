@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balão Agendamento - Modais</title>
+    <link rel="stylesheet" href="/css/modal/style.css">
+</head>
+<body>
+    <div class="background">
+        <h1 class="main-title">Balão Agendamento</h1>
+        <h1 class="secondary-title">Balão Agendamento</h1>
+
+        <!-- Botões para testar os modais -->
+        <div class="test-buttons">
+            <button onclick="showResumoModal()">Mostrar Resumo</button>
+            <button onclick="showServiceModal()">Mostrar Serviços</button>
+            <button onclick="showExitModal()">Mostrar Confirmação de Saída</button>
+        </div>
+
+        <!-- Modal de Resumo -->
+        <div id="resumoModal" class="modal resumo-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Resumo</h2>
+                    <button class="close-btn" onclick="hideResumoModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="service-details">
+                        <div class="service-name">Depilação - Axila</div>
+                        <div class="service-address">Rua Mozart Calheiros, 1600 - Izidro Pedroso</div>
+                        <div class="service-info">15 min - R$ 20,00</div>
+                    </div>
+                    <div class="add-service-question">
+                        Gostaria de adicionar outro serviço a este agendamento?
+                    </div>
+                    <button class="add-service-btn">
+                        <span class="plus-icon">+</span>
+                        Adicionar serviço
+                    </button>
+                    <button class="schedule-btn">Agendar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Seleção de Serviços -->
+        <div id="serviceModal" class="modal service-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Adicionar ao agendamento</h2>
+                    <button class="close-btn" onclick="hideServiceModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="search-container">
+                        <input type="text" placeholder="Buscar" class="search-input">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    
+                    <div class="service-category">
+                        <h3>PEDICURE</h3>
+                        <div class="service-item">
+                            <div class="service-info-left">
+                                <div class="service-name">Pedicure Clássica</div>
+                                <div class="service-price">R$ 15</div>
+                            </div>
+                            <span class="arrow">›</span>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-info-left">
+                                <div class="service-name">Pedicure Medicinal</div>
+                                <div class="service-price">R$ 50</div>
+                            </div>
+                            <span class="arrow">›</span>
+                        </div>
+                        <div class="service-item">
+                            <div class="service-info-left">
+                                <div class="service-name">Mani-Pedi</div>
+                                <div class="service-price">R$ 60</div>
+                            </div>
+                            <span class="arrow">›</span>
+                        </div>
+                    </div>
+
+                    <div class="service-category">
+                        <h3>MANICURE</h3>
+                    </div>
+
+                    <button class="back-btn">
+                        <span class="back-arrow">‹</span>
+                        Voltar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Confirmação de Saída -->
+        <div id="exitModal" class="modal exit-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close-btn" onclick="hideExitModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <h3>Sair sem fazer o agendamento?</h3>
+                    <p>Se você sair agora, seu agendamento não será salvo.</p>
+                    <div class="button-group">
+                        <button class="exit-btn">Sair</button>
+                        <button class="continue-btn">Continuar o agendamento</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/modal/script.js"></script>
+</body>
+</html>

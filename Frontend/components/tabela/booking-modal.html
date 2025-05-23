@@ -1,0 +1,49 @@
+<div class="booking-modal">
+    <button class="modal-close" aria-label="Fechar modal">
+        <i class="bi bi-x-lg"></i>
+    </button>
+    
+    <h2 class="modal-title">Agendar Atendimento</h2>
+    
+    <form class="booking-form">
+        <div class="form-group">
+            <label for="name" class="form-label">Nome completo</label>
+            <input type="text" id="name" name="name" class="form-input" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="phone" class="form-label">Telefone</label>
+            <input type="tel" id="phone" name="phone" class="form-input" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="email" class="form-label">E-mail</label>
+            <input type="email" id="email" name="email" class="form-input">
+        </div>
+        
+        <div class="form-group">
+            <label for="service" class="form-label">Serviço</label>
+            <select id="service" name="service" class="form-select" required>
+                <option value="">Selecione um serviço</option>
+                <option value="depilacao">Depilação</option>
+                <option value="acupuntura">Acupuntura</option>
+                <option value="cone-hindu">Cone Hindu</option>
+                <option value="terapia">Sessão de Terapia</option>
+            </select>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="date" class="form-label">Data</label>
+                <input type="date" id="date" name="date" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="time" class="form-label">Horário</label>
+                <input type="time" id="time" name="time" class="form-input" required>
+            </div>
+        </div>
+        
+        <button type="submit" class="form-submit">Solicitar Agendamento</button>
+    </form>
+</div>

@@ -1,0 +1,64 @@
+:root {
+    --marrom-escuro: #3F2E17;
+    --marrom-claro: #99805B;
+    --branco: #FFFFFF;
+    --preto: #000000;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  .container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--preto);
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+
+  button {
+    width: 100%;
+    background-color: var(--marrom-escuro);
+    color: var(--branco);
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background-color: var(--marrom-claro);
+  }
+
+  .mensagem {
+    text-align: center;
+    margin-top: 10px;
+    color: green;
+  }
+
+  .erro {
+    text-align: center;
+    margin-top: 10px;
+    color: red;
+  }

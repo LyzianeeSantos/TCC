@@ -1,0 +1,84 @@
+.servicos-container {
+  background-color: var(--color-primary-dark);
+  color: var(--color-white);
+  padding: 30px 15px;
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+#servicos-placeholder{
+  background-color: var(--color-primary-dark);
+}
+
+.servico-card {
+  background-color: var(--color-primary-darker); /* tom mais claro do marrom para contraste */
+  padding: 15px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.servico-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+
+.servico-card h3 {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.servico-card p {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-primary-light);
+}
+
+/* Botão Consultar preços */
+.btn-precos {
+  grid-column: 1 / -1; /* ocupa todas as colunas */
+  justify-self: center;
+  margin-top: 20px;
+  background-color: var(--marrom-escuro);
+  border: 1px solid var(--color-primary-light);
+  color: var(--color-primary-light);
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-precos:hover {
+  background-color: var(--color-primary-light);
+  color: var(--marrom-escuro);
+}
+
+/* Responsividade */
+
+/* Até 1024px: 2 colunas */
+@media (max-width: 1024px) {
+  .servicos-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Até 600px: 1 coluna */
+@media (max-width: 600px) {
+  .servicos-container {
+    grid-template-columns: 1fr;
+  }
+}

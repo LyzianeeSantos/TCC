@@ -1,0 +1,66 @@
+<div id="serviceModal" class="modal service-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Adicionar ao agendamento</h2>
+            <button class="close-btn" onclick="hideServiceModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <div class="search-container">
+                <input type="text" placeholder="Buscar" class="search-input">
+                <span class="search-icon">🔍</span>
+            </div>
+            
+            <div class="service-category">
+                <h3>PEDICURE</h3>
+                <div class="service-item">
+                    <div class="service-info-left">
+                        <div class="service-name">Pedicure Clássica</div>
+                        <div class="service-price">R$ 15</div>
+                    </div>
+                    <span class="arrow">›</span>
+                </div>
+                <div class="service-item">
+                    <div class="service-info-left">
+                        <div class="service-name">Pedicure Medicinal</div>
+                        <div class="service-price">R$ 50</div>
+                    </div>
+                    <span class="arrow">›</span>
+                </div>
+                <div class="service-item">
+                    <div class="service-info-left">
+                        <div class="service-name">Mani-Pedi</div>
+                        <div class="service-price">R$ 60</div>
+                    </div>
+                    <span class="arrow">›</span>
+                </div>
+            </div>
+
+            <div class="service-category">
+                <h3>MANICURE</h3>
+            </div>
+
+            <button class="back-btn">
+                <span class="back-arrow">‹</span>
+                Voltar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmação de Saída -->
+<div id="exitModal" class="modal exit-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button class="close-btn" onclick="hideExitModal()">×</button>
+        </div>
+        <div class="modal-body">
+            <h3>Sair sem fazer o agendamento?</h3>
+            <p>Se você sair agora, seu agendamento não será salvo.</p>
+            <div class="button-group">
+                <button class="exit-btn">Sair</button>
+                <button class="continue-btn">Continuar o agendamento</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

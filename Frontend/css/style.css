@@ -1,0 +1,62 @@
+@import url(servico.css);
+@import url(navbar.css);
+@import url(hero.css);
+@import url(contato.css);
+@import url(footer.css);
+@import url(avaliacoes.css);
+@import url(/css/login/login-registro.css);
+
+/* Base Styles */
+:root {
+    --color-primary: #99805b;
+    --color-primary-dark: #3f2e17;
+    --color-primary-darker: #423119;
+    --color-primary-light: #d2c7b0;
+    --color-primary-lighter: #aea494;
+    --color-white: #ffffff;
+    --color-black: #000000;
+    
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    color: var(--color-primary-dark);
+    background-color: var(--color-white);
+    line-height: 1.5;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}

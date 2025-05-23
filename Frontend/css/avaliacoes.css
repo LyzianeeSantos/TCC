@@ -1,0 +1,125 @@
+/* Testimonials Section */
+.testimonials {
+  background-color: var(--color-primary);
+  padding: 4rem 5%;
+}
+
+.testimonials-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.experience-card {
+  background-color: var(--color-white);
+  padding: 2rem;
+}
+
+.experience-title {
+  font-family: var(--font-serif);
+  font-size: 1.875rem;
+  color: var(--color-primary-dark);
+}
+
+.quote-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary-dark);
+}
+
+.bi-quote{
+  font-family: var(--font-serif);
+  font-size: 5rem;
+  color: var(--color-primary);
+}
+
+/* Testimonial Carousel */
+.testimonial-carousel {
+  background-color: var(--color-white);
+  padding: 2rem;
+  position: relative;
+  min-height: 200px; /* Ajuste conforme necessário */
+}
+
+.testimonial-card {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  right: 2rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.testimonial-card.active {
+  opacity: 1;
+  visibility: visible;
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+}
+
+.testimonial-name {
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  margin-bottom: 1rem;
+}
+
+.testimonial-text {
+  font-size: 0.875rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-dots {
+  display: flex;
+  gap: 0.25rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--color-primary-dark);
+  border-radius: 50%;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.dot.active {
+  opacity: 1;
+}
+
+.testimonials-cta {
+  display: flex;
+  justify-content: left;
+  margin-top: 3rem;
+}
+
+.btn-review {
+  background-color: var(--color-primary-dark);
+  color: var(--color-white);
+  border: none;
+  padding: 0.75rem 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-review:hover {
+  background-color: var(--color-primary-darker);
+}
+
+/* Media Queries for Testimonials Section */
+@media (min-width: 768px) {
+  .testimonials-grid {
+      grid-template-columns: repeat(3, 1fr);
+  }
+}

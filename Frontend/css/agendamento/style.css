@@ -1,0 +1,400 @@
+/* Base Styles */
+:root {
+    --primary: #3f2e17;
+    --secondary: #99805b;
+    --accent: #fffcf8;
+    --text: #000000;
+    --text-light: #666666;
+    --border: #e5e5e5;
+    --white: #ffffff;
+    --footer-bg: #1e1e1e;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    line-height: 1.5;
+    background-color: var(--white);
+}
+
+/* Adicione ou modifique no seu arquivo CSS */
+main.container {
+    margin-top: 80px;
+    /* Ajuste este valor conforme a altura da sua navbar */
+    padding-top: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 500;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background-color 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: rgba(63, 46, 23, 0.9);
+}
+
+.btn-confirm {
+    background-color: black;
+    color: var(--white);
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+}
+
+.btn-confirm:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Header */
+header {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-main {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.logo-sub {
+    font-size: 0.75rem;
+    color: var(--primary);
+}
+
+.main-nav {
+    display: none;
+}
+
+.nav-link {
+    margin-left: 2rem;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--secondary);
+}
+
+/* Main Content */
+main {
+    padding: 2rem 0;
+}
+
+.page-title {
+    font-size: 1.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.page-description {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.booking-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.timezone {
+    text-align: right;
+    font-size: 0.875rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+/* Calendar and Time Slots Layout */
+.calendar-time-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Calendar */
+.calendar {
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calendar-nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+}
+
+.calendar-month {
+    font-size: 1.125rem;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.25rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.weekday {
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.25rem;
+    text-align: center;
+}
+
+.day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    font-size: 0.875rem;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+.day:hover {
+    background-color: #f5f5f5;
+}
+
+.day.selected {
+    background-color: var(--secondary);
+    color: var(--white);
+}
+
+.day.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.day.empty {
+    cursor: default;
+}
+
+.availability-text {
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+/* Time Slots */
+.time-slots {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.time-slot {
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    background: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    text-align: center;
+}
+
+.time-slot:hover {
+    border-color: #ccc;
+}
+
+.time-slot.selected {
+    border-color: var(--secondary);
+    color: var(--secondary);
+}
+
+.show-all-btn {
+    background: none;
+    border: none;
+    color: var(--secondary);
+    cursor: pointer;
+    font-size: 0.875rem;
+    margin-top: 1rem;
+}
+
+.show-all-btn:hover {
+    color: var(--primary);
+}
+
+/* Appointment Info */
+.appointment-info {
+    background-color: var(--white);
+    height: 100%;
+}
+
+.info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.edit-btn {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: var(--secondary);
+    cursor: pointer;
+    font-size: 0.875rem;
+}
+
+.edit-btn svg {
+    margin-right: 0.25rem;
+}
+
+.edit-btn:hover {
+    color: var(--primary);
+}
+
+.service-details {
+    margin-bottom: 1.5rem;
+}
+
+.service-name {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.service-date,
+.service-location,
+.service-duration,
+.service-price {
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.5rem 0;
+}
+
+.payment-title {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.payment-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.terms-text {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+
+/* Responsive */
+@media (min-width: 768px) {
+    .main-nav {
+        display: flex;
+    }
+
+    .booking-grid {
+        grid-template-columns: 2fr 1fr;
+    }
+
+    .calendar-time-container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .calendar-container {
+        flex: 1;
+    }
+
+    .time-slots-container {
+        flex: 1;
+        padding-left: 1.5rem;
+    }
+
+    .time-slots {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 1024px) {
+    .calendar-container {
+        flex: 1.2;
+    }
+
+    .time-slots-container {
+        flex: 0.8;
+    }
+}

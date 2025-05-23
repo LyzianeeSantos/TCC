@@ -1,0 +1,45 @@
+:root {
+    --white: #ffffff;
+    --footer-bg: #1e1e1e;
+}
+
+footer {
+    background-color: var(--footer-bg);
+    color: var(--white);
+    padding: 3rem 0;
+    margin-top: 3rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.footer-title {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+}
+
+.footer-text {
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-copyright {
+    text-align: center;
+    font-size: 0.875rem;
+}
+
+.footer-copyright p {
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+
+    .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
+    } 
+
+}

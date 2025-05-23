@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALCIONE depiladora - Tabela de Preços</title>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- links bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="css/tabela/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="/css/login/login-registro.css">
+
+
+</head>
+
+<body>
+    <div class="page-container">
+
+        <div id="navbar-placeholder"></div>
+
+        <!-- Login Section -->
+        <div id="loginContainer"></div>
+
+        <!-- Menu mobile será carregado via JavaScript -->
+        <div id="mobile-menu-container" class="mobile-menu-container hidden"></div>
+
+        <div class="page-container">
+    
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <h1>TABELA DE PREÇOS</h1>
+                <p>Conheça nossos serviços e pacotes promocionais. Agende seu horário e cuide-se com quem entende do assunto.</p>
+            </div>
+    
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Tabs -->
+                <div class="tabs-container">
+                    <button id="tab-depilacao" class="tab-button active" data-tab="depilacao">Depilação</button>
+                    <button id="tab-pacotes" class="tab-button" data-tab="pacotes">Pacotes Promocionais</button>
+                    <button id="tab-terapias" class="tab-button" data-tab="terapias">Terapias</button>
+                </div>
+    
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <!-- Depilação Tab -->
+                    <div id="depilacao-content" class="tab-pane active">
+                        <h2>Serviços de Depilação</h2>
+                        
+                        <div class="cards-grid">
+                            <!-- Corpo -->
+                            <div class="price-card">
+                                <div class="price-card-header">
+                                    Corpo
+                                </div>
+                                <div class="price-card-body">
+                                    <div class="price-list">
+                                        <div class="price-item">
+                                            <span>Perna completa</span>
+                                            <span class="price">R$ 45,00</span>
+                                        </div>
+                                        <div class="price-item">
+                                            <span>Meia perna</span>
+                                            <span class="price">R$ 35,00</span>
+                                        </div>
+                                        <div class="price-item">
+                                            <span>Braço</span>
+                                            <span class="price">R$ 35,00</span>
+                                        </div>
+                                        <div class="price-item">
+                                            <span>Costa</span>
+                                            <span class="price">R$ 35,00</span>
+                                        </div>
+                                        <div class="price-item">
+                                            <span>Barriga</span>
+                                            <span class="price">R$ 35,00</span>
+                                        </div>
+                                    </div>
+                                    <button class="book-button">Agendar</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Rosto -->
+                            <div class="price-card">
+                                <div class="price-card-header">
+                                    Rosto
+                                </div>
+                                <div class="price-card-body">
+                                    <div class="price-list">
+                                        <div class="price-item">
+                                            <span>Buço</span>
+                                            <span class="price">R$ 15,00</span>
+                                        </div>
+                                        <div class="price-item">
+                                            <span>Rosto completo</span>
+                                            <span class="price">R$ 35,00</span>
+                                        </div>
+                                        <div class="price-item">
+                                            <span>Sobrancelha</span>
+                                            <span class="price">R$ 25,00</span>
+                                        </div>
+                                    </div>
+                                    <button class="book-button">Agendar</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Íntima -->
+                            <div class="price-card">
+                                <div class="price-card-header">
+                                    Íntima
+                                </div>
+                                <div class="price-card-body">
+                                    <div class="price-list">
+                                        <div class="price-item">
+                                            <span>Virilha</span>
+                                            <span class="price">R$ 50,00</span>
+                                        </div>
+                                        <div class="price-item">
+                                            <span>Axila</span>
+                                            <span class="price">R$ 18,00</span>
+                                        </div>
+                                    </div>
+                                    <button class="book-button">Agendar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pacotes Tab -->
+                    <div id="pacotes-content" class="tab-pane">
+                        <h2>Pacotes Promocionais</h2>
+                        
+                        <div class="cards-grid">
+                            <!-- Pacote Completo -->
+                            <div class="package-card" data-package="completo">
+                                <div class="package-card-header">
+                                    <span class="badge">MAIS PEDIDO</span>
+                                    Pacote Completo
+                                </div>
+                                <div class="package-card-body">
+                                    <div class="package-price">
+                                        <div>
+                                            <span class="original-price">R$ 135,00</span>
+                                            <div class="discount-price">R$ 110,00</div>
+                                            <span class="savings">Economia de R$ 25,00</span>
+                                        </div>
+                                        <div class="icon-container">
+                                            <i class="bi bi-gift"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="package-items">
+                                        <div class="package-item">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            <span>Perna completa</span>
+                                        </div>
+                                        <div class="package-item">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            <span>Virilha</span>
+                                        </div>
+                                        <div class="package-item">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            <span>Axila</span>
+                                        </div>
+                                        <div class="package-item">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            <span>Buço</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="book-button">Agendar este pacote</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Pacote Meia Perna -->
+                            <div class="package-card" data-package="meia-perna">
+                                <div class="package-card-header">
+                                    Pacote Meia Perna
+                                </div>
+                                <div class="package-card-body">
+                                    <div class="package-price">
+                                        <div>
+                                            <span class="original-price">R$ 125,00</span>
+                                            <div class="discount-price">R$ 100,00</div>
+                                            <span class="savings">Economia de R$ 25,00</span>
+                                        </div>
+                                        <div class="icon-container">
+                                            <i class="bi bi-gift"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="package-items">
+                                        <div class="package-item">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            <span>Meia perna</span>
+                                        </div>
+                                        <div class="package-item">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            <span>Virilha</span>
+                                        </div>
+                                        <div class="package-item">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            <span>Axila</span>
+                                        </div>
+                                        <div class="package-item">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                            <span>Buço</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="book-button">Agendar este pacote</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Pacote Personalizado -->
+                            <div class="package-card">
+                                <div class="package-card-header custom">
+                                    Pacote Personalizado
+                                </div>
+                                <div class="package-card-body">
+                                    <div class="package-price">
+                                        <div>
+                                            <div class="discount-price">Consulte</div>
+                                            <span class="custom-text">Preço especial para combinações</span>
+                                        </div>
+                                        <div class="icon-container">
+                                            <i class="bi bi-star-fill"></i>
+                                        </div>
+                                    </div>
+                                    
+                                    <p class="custom-description">
+                                        Monte seu pacote personalizado combinando os serviços que você precisa e ganhe um desconto especial.
+                                    </p>
+                                    
+                                    <button class="book-button custom">Consultar opções</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Benefícios -->
+                        <div class="benefits-section">
+                            <h3>Benefícios dos Pacotes</h3>
+                            <div class="benefits-grid">
+                                <div class="benefit-item">
+                                    <div class="benefit-icon">
+                                        <i class="bi bi-gift"></i>
+                                    </div>
+                                    <div class="benefit-content">
+                                        <h4>Economia</h4>
+                                        <p>Economize até 20% em comparação com serviços avulsos</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-item">
+                                    <div class="benefit-icon">
+                                        <i class="bi bi-calendar-check"></i>
+                                    </div>
+                                    <div class="benefit-content">
+                                        <h4>Prioridade</h4>
+                                        <p>Prioridade no agendamento para clientes de pacotes</p>
+                                    </div>
+                                </div>
+                                <div class="benefit-item">
+                                    <div class="benefit-icon">
+                                        <i class="bi bi-clock"></i>
+                                    </div>
+                                    <div class="benefit-content">
+                                        <h4>Praticidade</h4>
+                                        <p>Agende todos os serviços para o mesmo dia</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Terapias Tab -->
+                    <div id="terapias-content" class="tab-pane">
+                        <h2>Terapias e Tratamentos</h2>
+                        
+                        <div class="cards-grid two-columns">
+                            <!-- Acupuntura e Cone Hindu -->
+                            <div class="price-card">
+                                <div class="price-card-header">
+                                    Acupuntura ou Cone Hindu
+                                </div>
+                                <div class="price-card-body">
+                                    <div class="therapy-price">
+                                        <span>Sessão individual</span>
+                                        <span class="price">R$ 150,00</span>
+                                    </div>
+                                    
+                                    <p class="therapy-description">
+                                        A acupuntura e o cone hindu são técnicas terapêuticas que ajudam a aliviar dores, 
+                                        reduzir o estresse e melhorar o bem-estar geral.
+                                    </p>
+                                    
+                                    <button class="book-button">Agendar sessão</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Sessões de Terapia -->
+                            <div class="price-card">
+                                <div class="price-card-header">
+                                    Sessões de Terapia
+                                </div>
+                                <div class="price-card-body">
+                                    <div class="therapy-types">
+                                        <p>ACUPUNTURA - AURICULOTERAPIA - AROMOTERAPIA - SHIATSU</p>
+                                    </div>
+                                    
+                                    <div class="therapy-packages">
+                                        <div class="therapy-package">
+                                            <span>1 Sessão</span>
+                                            <span class="price">R$ 150,00</span>
+                                        </div>
+                                        <div class="therapy-package medium">
+                                            <div>
+                                                <span>2 Sessões</span>
+                                                <span class="savings">Economia de R$ 50,00</span>
+                                            </div>
+                                            <span class="price">R$ 250,00</span>
+                                        </div>
+                                        <div class="therapy-package best">
+                                            <div>
+                                                <span class="best-value">
+                                                    3 Sessões
+                                                    <span class="best-badge">MELHOR VALOR</span>
+                                                </span>
+                                                <span class="savings">Economia de R$ 150,00</span>
+                                            </div>
+                                            <span class="price">R$ 300,00</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="book-button">Agendar pacote</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Benefícios das Terapias -->
+                        <div class="therapy-benefits">
+                            <h3>Benefícios das Terapias</h3>
+                            <div class="therapy-benefits-grid">
+                                <div class="therapy-benefit">
+                                    <h4>Redução do Estresse</h4>
+                                    <p>Alívio da tensão e ansiedade do dia a dia</p>
+                                </div>
+                                <div class="therapy-benefit">
+                                    <h4>Alívio de Dores</h4>
+                                    <p>Diminuição de dores crônicas e musculares</p>
+                                </div>
+                                <div class="therapy-benefit">
+                                    <h4>Equilíbrio Energético</h4>
+                                    <p>Harmonização das energias do corpo</p>
+                                </div>
+                                <div class="therapy-benefit">
+                                    <h4>Bem-estar Geral</h4>
+                                    <p>Melhora da qualidade de vida e disposição</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Notice Section -->
+                <div class="notice-section">
+                    <div class="notice-content">
+                        <div class="notice-item">
+                            <i class="bi bi-exclamation-triangle-fill alert-icon"></i>
+                            <span>TRAZER LENÇOL OU PAGAR TAXA DE R$5,00</span>
+                        </div>
+                        <div class="notice-divider"></div>
+                        <div class="notice-item">
+                            <span>ATENDIMENTO COM HORA MARCADA</span>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- CTA Section -->
+                <div class="cta-section">
+                    <h2>Pronta para agendar?</h2>
+                    <p>
+                        Escolha o serviço desejado e agende seu horário. Estamos ansiosos para proporcionar a melhor experiência para você.
+                    </p>
+                    <button id="cta-booking-btn" class="cta-button">Agendar Agora</button>
+                </div>
+            </main>
+    
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-grid">
+                        <!-- Logo and Policies -->
+                        <div class="footer-column">
+                            <div class="footer-logo">
+                                <div class="footer-logo-main">ALCIONE</div>
+                                <div class="footer-logo-sub">depiladora</div>
+                            </div>
+                            <div class="footer-links">
+                                <a href="#" class="footer-link">Políticas de Privacidade</a>
+                                <a href="#" class="footer-link">Termos e condições</a>
+                                <a href="#" class="footer-link">Políticas de Cookies</a>
+                            </div>
+                        </div>
+    
+                        <!-- Address and Contact -->
+                        <div class="footer-column">
+                            <p>Rua Monzart Calheiros, 1600 - Izidro Pedroso</p>
+                            <p>Dourados - MS</p>
+                            <p>Tel: <a href="tel:+556799958012" class="contact-link">(67) 99958-8012</a></p>
+                            <p><a href="mailto:alcionedepiladora@gmail.com" class="contact-link">alcionedepiladora@gmail.com</a></p>
+                        </div>
+    
+                        <!-- Social Media -->
+                        <div class="footer-column">
+                            <p class="social-title">Siga nossas redes sociais:</p>
+                            <div class="social-icons">
+                                <a href="#" aria-label="Instagram" class="social-icon">
+                                    <i class="bi bi-instagram"></i>
+                                </a>
+                                <a href="#" aria-label="Facebook" class="social-icon">
+                                    <i class="bi bi-facebook"></i>
+                                </a>
+                                <a href="#" aria-label="Twitter" class="social-icon">
+                                    <i class="bi bi-twitter-x"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Copyright -->
+                    <div class="copyright">
+                        <p>© 2025 por Alcione depiladora.</p>
+                        <p>Orgulhosamente desenvolvido por @lyziane_lyz</p>
+                    </div>
+                </div>
+            </footer>
+    
+            <!-- Booking Modal -->
+            <div id="booking-modal" class="modal hidden">
+                <div class="modal-content">
+                    <button id="close-modal-btn" class="close-button" aria-label="Fechar modal">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+    
+                    <h2 class="modal-title">Agendar Atendimento</h2>
+    
+                    <form id="booking-form" class="booking-form">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Nome completo</label>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Telefone</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" id="email" name="email" class="form-input">
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="service" class="form-label">Serviço</label>
+                            <select id="service" name="service" class="form-select" required>
+                                <option value="">Selecione um serviço</option>
+                                <option value="depilacao">Depilação</option>
+                                <option value="pacote-completo">Pacote Completo</option>
+                                <option value="pacote-meia-perna">Pacote Meia Perna</option>
+                                <option value="acupuntura">Acupuntura</option>
+                                <option value="cone-hindu">Cone Hindu</option>
+                                <option value="terapia">Sessão de Terapia</option>
+                            </select>
+                        </div>
+    
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date" class="form-label">Data</label>
+                                <input type="date" id="date" name="date" class="form-input" required>
+                            </div>
+    
+                            <div class="form-group">
+                                <label for="time" class="form-label">Horário</label>
+                                <input type="time" id="time" name="time" class="form-input" required>
+                            </div>
+                        </div>
+    
+                        <button type="submit" class="form-submit">Solicitar Agendamento</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="/js/script.js"></script>
+    <script src="js/precos/main.js"></script>
+
+</body>
+
+</html>
