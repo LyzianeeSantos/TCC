@@ -14,44 +14,48 @@ datasource db {
 }
 
 model Usuario {
-  id       Int     @id @default(autoincrement())
-  nome     String
-  email    String  @unique
-  telefone String
-  senha    String
-  tipo     String  // 'cliente' ou 'admin'
-}
-
-
-model Cliente {
   id            Int            @id @default(autoincrement())
   nome          String
   email         String         @unique
   telefone      String
-  agendamentos  Agendamento[]  // Relação com agendamentos
-}
+  senha         String
+  tipo          String         // 'cliente' ou 'admin'
+
+  agendamentos  Agendamento[]  @relation("UsuarioAgendamentos")
+avaliacoes    Avaliacao[]   // Relacionamento com avaliações
+ }
 
 model Servico {
   id            Int            @id @default(autoincrement())
   nome          String
   descricao     String
   preco         Float
-  agendamentos  Agendamento[]  // Relação com agendamentos
+  agendamentos  Agendamento[]
 }
+
+model Avaliacao {
+  id         Int      @id @default(autoincrement())
+  nota       Int
+  comentario String
+  data       DateTime @default(now())
+
+  usuarioId  Int
+  usuario    Usuario  @relation(fields: [usuarioId], references: [id])
+}
+
 
 model Agendamento {
-  id         Int       @id @default(autoincrement())
-  data       DateTime
-  hora       String
-  status     String
-  localizacao String
+  id           Int       @id @default(autoincrement())
+  data         DateTime
+  hora         String
+  status       String
+  localizacao  String
 
-  // Chave estrangeira para Cliente
-  clienteId  Int
-  cliente    Cliente   @relation(fields: [clienteId], references: [id])
+  clienteId    Int
+  cliente      Usuario   @relation("UsuarioAgendamentos", fields: [clienteId], references: [id])
 
-  // Chave estrangeira para Servico
-  servicoId  Int
-  servico    Servico   @relation(fields: [servicoId], references: [id])
+  servicoId    Int
+  servico      Servico   @relation(fields: [servicoId], references: [id])
 }
+
 

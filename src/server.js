@@ -5,10 +5,10 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 
 // Importar rotas
-const clienteRoutes = require('./routes/clienteRoutes');
 const agendamentoRoutes = require('./routes/agendamentoRoutes');
 const servicoRoutes = require('./routes/servicoRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
+const avaliacaoRoutes = require('./routes/avaliacaoRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,10 +18,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Rotas
-app.use('/clientes', clienteRoutes);
 app.use('/agendamentos', agendamentoRoutes);
 app.use('/servicos', servicoRoutes);
 app.use('/usuarios', usuarioRoutes);
+app.use('/avaliacoes', avaliacaoRoutes)
 
 // Rota raiz
 app.get('/', (req, res) => {

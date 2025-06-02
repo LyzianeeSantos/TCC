@@ -2,7 +2,12 @@ const jwt = require('jsonwebtoken');
 const SECRET = process.env.JWT_SECRET || 'segredo123';
 
 const autenticar = (req, res, next) => {
-  const token = req.headers.authorization;
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) return res.status(401).json({ error: 'Token não fornecido' });
+  
+  const token = authHeader.split(' ')[1]; // Pega apenas o token depois de "Bearer"
+  
 
   if (!token) return res.status(401).json({ error: 'Token não fornecido' });
 
