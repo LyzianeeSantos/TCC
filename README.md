@@ -78,7 +78,7 @@ Este projeto possui uma coleção Postman que cobre funcionalidades como gerenci
 
 ### 🔗 Download
 
-Você pode baixar a coleção clicando aqui: [`TCC - Agendamento e Clientes.postman_collection.json`](./TCC%20-%20Agendamento%20e%20Clientes.postman_collection.json)
+Você pode baixar a coleção clicando aqui: [`TCC - Agendamento e Clientes.postman_collection.json`](./tcc-colecao.postman_collection.json)
 
 ### 📌 Como usar
 
