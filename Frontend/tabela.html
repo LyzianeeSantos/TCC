@@ -16,6 +16,7 @@
     <!-- CSS personalizado -->
     <link rel="stylesheet" href="css/tabela/style.css">
     <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="/css/login/login-registro.css">
 
 
@@ -29,17 +30,21 @@
         <!-- Login Section -->
         <div id="loginContainer"></div>
 
+        <!-- Alert -->
+        <div id="alert-container" class="position-fixed top-0 end-0 p-3" style="z-index: 9999;"></div>
+
         <!-- Menu mobile será carregado via JavaScript -->
         <div id="mobile-menu-container" class="mobile-menu-container hidden"></div>
 
         <div class="page-container">
-    
+
             <!-- Hero Section -->
             <div class="hero-section">
                 <h1>TABELA DE PREÇOS</h1>
-                <p>Conheça nossos serviços e pacotes promocionais. Agende seu horário e cuide-se com quem entende do assunto.</p>
+                <p>Conheça nossos serviços e pacotes promocionais. Agende seu horário e cuide-se com quem entende do
+                    assunto.</p>
             </div>
-    
+
             <!-- Main Content -->
             <main class="main-content">
                 <!-- Tabs -->
@@ -48,13 +53,13 @@
                     <button id="tab-pacotes" class="tab-button" data-tab="pacotes">Pacotes Promocionais</button>
                     <button id="tab-terapias" class="tab-button" data-tab="terapias">Terapias</button>
                 </div>
-    
+
                 <!-- Tab Content -->
                 <div class="tab-content">
                     <!-- Depilação Tab -->
                     <div id="depilacao-content" class="tab-pane active">
                         <h2>Serviços de Depilação</h2>
-                        
+
                         <div class="cards-grid">
                             <!-- Corpo -->
                             <div class="price-card">
@@ -87,7 +92,7 @@
                                     <button class="book-button">Agendar</button>
                                 </div>
                             </div>
-                            
+
                             <!-- Rosto -->
                             <div class="price-card">
                                 <div class="price-card-header">
@@ -111,7 +116,7 @@
                                     <button class="book-button">Agendar</button>
                                 </div>
                             </div>
-                            
+
                             <!-- Íntima -->
                             <div class="price-card">
                                 <div class="price-card-header">
@@ -133,11 +138,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Pacotes Tab -->
                     <div id="pacotes-content" class="tab-pane">
                         <h2>Pacotes Promocionais</h2>
-                        
+
                         <div class="cards-grid">
                             <!-- Pacote Completo -->
                             <div class="package-card" data-package="completo">
@@ -156,7 +161,7 @@
                                             <i class="bi bi-gift"></i>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="package-items">
                                         <div class="package-item">
                                             <i class="bi bi-check-circle-fill"></i>
@@ -175,11 +180,11 @@
                                             <span>Buço</span>
                                         </div>
                                     </div>
-                                    
+
                                     <button class="book-button">Agendar este pacote</button>
                                 </div>
                             </div>
-                            
+
                             <!-- Pacote Meia Perna -->
                             <div class="package-card" data-package="meia-perna">
                                 <div class="package-card-header">
@@ -196,7 +201,7 @@
                                             <i class="bi bi-gift"></i>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="package-items">
                                         <div class="package-item">
                                             <i class="bi bi-check-circle-fill"></i>
@@ -215,11 +220,11 @@
                                             <span>Buço</span>
                                         </div>
                                     </div>
-                                    
+
                                     <button class="book-button">Agendar este pacote</button>
                                 </div>
                             </div>
-                            
+
                             <!-- Pacote Personalizado -->
                             <div class="package-card">
                                 <div class="package-card-header custom">
@@ -235,16 +240,17 @@
                                             <i class="bi bi-star-fill"></i>
                                         </div>
                                     </div>
-                                    
+
                                     <p class="custom-description">
-                                        Monte seu pacote personalizado combinando os serviços que você precisa e ganhe um desconto especial.
+                                        Monte seu pacote personalizado combinando os serviços que você precisa e ganhe
+                                        um desconto especial.
                                     </p>
-                                    
+
                                     <button class="book-button custom">Consultar opções</button>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Benefícios -->
                         <div class="benefits-section">
                             <h3>Benefícios dos Pacotes</h3>
@@ -279,11 +285,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Terapias Tab -->
                     <div id="terapias-content" class="tab-pane">
                         <h2>Terapias e Tratamentos</h2>
-                        
+
                         <div class="cards-grid two-columns">
                             <!-- Acupuntura e Cone Hindu -->
                             <div class="price-card">
@@ -295,16 +301,17 @@
                                         <span>Sessão individual</span>
                                         <span class="price">R$ 150,00</span>
                                     </div>
-                                    
+
                                     <p class="therapy-description">
-                                        A acupuntura e o cone hindu são técnicas terapêuticas que ajudam a aliviar dores, 
+                                        A acupuntura e o cone hindu são técnicas terapêuticas que ajudam a aliviar
+                                        dores,
                                         reduzir o estresse e melhorar o bem-estar geral.
                                     </p>
-                                    
+
                                     <button class="book-button">Agendar sessão</button>
                                 </div>
                             </div>
-                            
+
                             <!-- Sessões de Terapia -->
                             <div class="price-card">
                                 <div class="price-card-header">
@@ -314,7 +321,7 @@
                                     <div class="therapy-types">
                                         <p>ACUPUNTURA - AURICULOTERAPIA - AROMOTERAPIA - SHIATSU</p>
                                     </div>
-                                    
+
                                     <div class="therapy-packages">
                                         <div class="therapy-package">
                                             <span>1 Sessão</span>
@@ -338,12 +345,12 @@
                                             <span class="price">R$ 300,00</span>
                                         </div>
                                     </div>
-                                    
+
                                     <button class="book-button">Agendar pacote</button>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Benefícios das Terapias -->
                         <div class="therapy-benefits">
                             <h3>Benefícios das Terapias</h3>
@@ -368,7 +375,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <!-- Notice Section -->
                 <div class="notice-section">
                     <div class="notice-content">
@@ -382,45 +389,46 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <!-- CTA Section -->
                 <div class="cta-section">
                     <h2>Pronta para agendar?</h2>
                     <p>
-                        Escolha o serviço desejado e agende seu horário. Estamos ansiosos para proporcionar a melhor experiência para você.
+                        Escolha o serviço desejado e agende seu horário. Estamos ansiosos para proporcionar a melhor
+                        experiência para você.
                     </p>
                     <button id="cta-booking-btn" class="cta-button">Agendar Agora</button>
                 </div>
             </main>
-    
-              <!-- Footer -->
+
+            <!-- Footer -->
             <div id="footer-placeholder"></div>
-    
+
             <!-- Booking Modal -->
             <div id="booking-modal" class="modal hidden">
                 <div class="modal-content">
                     <button id="close-modal-btn" class="close-button" aria-label="Fechar modal">
                         <i class="bi bi-x-lg"></i>
                     </button>
-    
+
                     <h2 class="modal-title">Agendar Atendimento</h2>
-    
+
                     <form id="booking-form" class="booking-form">
                         <div class="form-group">
                             <label for="name" class="form-label">Nome completo</label>
                             <input type="text" id="name" name="name" class="form-input" required>
                         </div>
-    
+
                         <div class="form-group">
                             <label for="phone" class="form-label">Telefone</label>
                             <input type="tel" id="phone" name="phone" class="form-input" required>
                         </div>
-    
+
                         <div class="form-group">
                             <label for="email" class="form-label">E-mail</label>
                             <input type="email" id="email" name="email" class="form-input">
                         </div>
-    
+
                         <div class="form-group">
                             <label for="service" class="form-label">Serviço</label>
                             <select id="service" name="service" class="form-select" required>
@@ -433,19 +441,19 @@
                                 <option value="terapia">Sessão de Terapia</option>
                             </select>
                         </div>
-    
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="date" class="form-label">Data</label>
                                 <input type="date" id="date" name="date" class="form-input" required>
                             </div>
-    
+
                             <div class="form-group">
                                 <label for="time" class="form-label">Horário</label>
                                 <input type="time" id="time" name="time" class="form-input" required>
                             </div>
                         </div>
-    
+
                         <button type="submit" class="form-submit">Solicitar Agendamento</button>
                     </form>
                 </div>

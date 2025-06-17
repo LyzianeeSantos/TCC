@@ -1,6 +1,11 @@
-import './avaliacoes/avaliacoes.js'
-
 import { loadNavbar } from './componentes/navbar.js'
+import { atualizarNavbar } from './auth.js'
+
+loadNavbar().then(() => {
+    atualizarNavbar()
+})
+
+import './avaliacoes/avaliacoes.js'
 import { loadServicos } from "./componentes/servicos.js"
 import { loadContato } from "./componentes/contato.js"
 import { loadAvaliacao } from "./componentes/avaliacao.js"
@@ -10,9 +15,10 @@ import { loadFooterSecundario } from './componentes/footer2.js'
 import { loadAddServico } from './componentes/modal/addServico.js'
 import { loadResumo } from './componentes/modal/resumo.js'
 import { loadSair } from './componentes/modal/sair.js'
-// import { showAlert } from './alert/alert.js'
 
-loadNavbar ()
+//Painel administrador
+import { loadAdm } from './componentes/PainelAdm/filtro.js'
+
 loadServicos ()
 loadLogin ()
 loadContato ()
@@ -22,4 +28,4 @@ loadFooterSecundario ()
 loadAddServico ()
 loadResumo ()
 loadSair ()
-// showAlert ()
+loadAdm ()

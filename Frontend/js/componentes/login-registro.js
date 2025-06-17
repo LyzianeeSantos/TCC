@@ -1,3 +1,6 @@
+import { showAlert } from '../alert/alert.js'
+import { atualizarNavbar } from '../auth.js'
+
 export function loadLogin() {
   function waitForElement(selector, timeout = 5000) {
     return new Promise((resolve, reject) => {
@@ -103,9 +106,24 @@ export function loadLogin() {
 
                 if (res.ok) {
                   showAlert('✅ Login realizado com sucesso!', 'success')
+
+                  // Salvar dados no localStorage
+                  localStorage.setItem('usuario', JSON.stringify({
+                    nome: data.nome,
+                    tipo: data.tipo,
+                    token: data.token
+                  }))
+
+                  // Atualiza a navbar
+                  atualizarNavbar()
+
                   modal.classList.remove('show')
                   flipCard.classList.remove('show-back')
-                  
+
+                  setTimeout(() => {
+                    window.location.href = '/servicos.html'
+                  }, 1500)
+
                 } else {
                   showAlert('❌ Email ou senha incorretos.', 'danger')
                 }
@@ -154,24 +172,4 @@ export function loadLogin() {
     .catch(error => {
       console.error('Error waiting for login button:', error)
     })
-}
-
-function showAlert(message, type = 'success', timeout = 3000) {
-  const alertContainer = document.getElementById('alert-container')
-
-  const wrapper = document.createElement('div')
-  wrapper.innerHTML = `
-    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-      ${message}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  `
-
-  alertContainer.append(wrapper)
-
-  // Remove automaticamente depois do timeout
-  setTimeout(() => {
-      const alert = bootstrap.Alert.getOrCreateInstance(wrapper.querySelector('.alert'))
-      alert.close()
-  }, timeout)
 }
