@@ -8,19 +8,36 @@ export function atualizarNavbar() {
     const userName = document.getElementById('userName')
     const logoutBtn = document.getElementById('logoutBtn')
 
+    const navAgendamento = document.getElementById('navAgendamento')
+    const navAdministrar = document.getElementById('navAdministrar')
+
     if (!btnAgendamento || !userMenu || !userName || !logoutBtn) {
         // Se a navbar não existe nessa página, não faz nada
         return
     }
 
     if (usuario) {
+        // Mostrar menu usuário e ocultar botão acessar
         btnAgendamento.classList.add('d-none')
         userMenu.classList.remove('d-none')
         userName.textContent = usuario.nome
+
+        // Controle dos links da navbar
+        if (usuario.tipo === 'adm') {
+            navAgendamento?.classList.remove('d-none')
+            navAdministrar?.classList.remove('d-none')
+        } else if (usuario.tipo === 'cliente') {
+            navAgendamento?.classList.remove('d-none')
+            navAdministrar?.classList.add('d-none')
+        }
     } else {
+        // Usuário não logado
         btnAgendamento.classList.remove('d-none')
         userMenu.classList.add('d-none')
         userName.textContent = ''
+
+        navAgendamento?.classList.add('d-none')
+        navAdministrar?.classList.add('d-none')
     }
 
     logoutBtn.addEventListener('click', () => {
@@ -30,6 +47,6 @@ export function atualizarNavbar() {
 
         setTimeout(() => {
             window.location.href = '/index.html'
-          }, 1500)
+        }, 1500)
     })
 }
