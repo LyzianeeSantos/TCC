@@ -19,10 +19,10 @@ model Usuario {
   email         String         @unique
   telefone      String
   senha         String
-  tipo          String         // 'cliente' ou 'admin'
+  tipo          String         @default("cliente") // 'cliente' ou 'admin'
 
   agendamentos  Agendamento[]  @relation("UsuarioAgendamentos")
-avaliacoes    Avaliacao[]   // Relacionamento com avaliações
+  avaliacoes    Avaliacao[]   // Relacionamento com avaliações
  }
 
 model Servico {

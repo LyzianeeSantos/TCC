@@ -10,6 +10,7 @@ import { loadFooterSecundario } from './componentes/footer2.js'
 import { loadAddServico } from './componentes/modal/addServico.js'
 import { loadResumo } from './componentes/modal/resumo.js'
 import { loadSair } from './componentes/modal/sair.js'
+// import { showAlert } from './alert/alert.js'
 
 loadNavbar ()
 loadServicos ()
@@ -21,3 +22,4 @@ loadFooterSecundario ()
 loadAddServico ()
 loadResumo ()
 loadSair ()
+// showAlert ()
