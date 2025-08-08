@@ -29,6 +29,7 @@ model Servico {
   id            Int            @id @default(autoincrement())
   nome          String
   descricao     String
+  duracaoMin   Int           // Armazena em minutos, ex.: 90 = 1h30
   preco         Float
   agendamentos  Agendamento[]
 }

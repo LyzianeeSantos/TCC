@@ -3,9 +3,9 @@ const prisma = new PrismaClient();
 
 const createServico = async (req, res) => {
   try {
-    const { nome, descricao, preco } = req.body;
+    const { nome, descricao, preco, duracao } = req.body;
     const novoServico = await prisma.servico.create({
-      data: { nome, descricao, preco: parseFloat(preco) },
+      data: { nome, descricao, preco: parseFloat(preco), duracao },
     });
     res.status(201).json(novoServico);
   } catch (error) {
