@@ -21,7 +21,7 @@
 }
 
 .experience-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 1.875rem;
   color: var(--color-primary-dark);
 }
@@ -34,7 +34,7 @@
 }
 
 .bi-quote{
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 5rem;
   color: var(--color-primary);
 }

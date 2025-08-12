@@ -1,8 +1,21 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const serviceGrid = document.querySelector('.service-grid');
     const tabButtons = document.querySelectorAll('.tab-button');
 
-    // 🔥 Carrega os serviços da API
+
+    function formatarDuracao(minutos) {
+        if (!minutos && minutos !== 0) return 'Duração a definir';
+
+        const h = Math.floor(minutos / 60);
+        const m = minutos % 60;
+
+        if (h > 0 && m > 0) return `${h}h ${m}m`;
+        if (h > 0) return `${h}h`;
+        return `${m}m`;
+    }
+
+
+    // Carrega os serviços da API
     fetch('http://localhost:3000/servicos')
         .then(response => {
             if (!response.ok) {
@@ -20,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="card-front">
                             <h3 class="service-title">${servico.nome}</h3>
                             <p class="service-subtitle">${servico.descricao}</p>
-                            <p class="service-duration">${servico.duracao || 'Duração a definir'}</p>
+                            <p class="service-duration">${formatarDuracao(servico.duracaoMin) || 'Duração a definir'}</p>
                             <p class="service-price">R$ ${servico.preco.toFixed(2).replace('.', ',')}</p>
                             <button class="book-button">Agendar agora</button>
                         </div>
@@ -56,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Erro:', error);
         });
 
-    // 🔥 Função que ativa as interações (filtros, flip, seleção)
+    // Função que ativa as interações (filtros, flip, seleção)
     function ativarInteracoes() {
         const cardContainers = document.querySelectorAll('.card-container');
         const bookButtons = document.querySelectorAll('.card-front .book-button');
@@ -64,9 +77,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const continueButtons = document.querySelectorAll('.continue-button');
         const checkboxes = document.querySelectorAll('.checkbox');
 
-        // 🔸 Filtro das categorias
+        // Filtro das categorias
         tabButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 tabButtons.forEach(btn => btn.classList.remove('active'));
                 this.classList.add('active');
                 const category = this.getAttribute('data-category');
@@ -77,48 +90,56 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // 🔸 Flip frontal -> trás
+        // Flip frontal -> trás
         bookButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const card = this.closest('.card');
                 card.classList.add('flipped');
             });
         });
 
-        // 🔸 Flip trás -> frontal
+        // Flip trás -> frontal
         flipBackButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const card = this.closest('.card');
                 card.classList.remove('flipped');
             });
         });
 
-        // 🔸 Confirmar agendamento
+        // Confirmar agendamento
         continueButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const card = this.closest('.card');
                 const cardContainer = card.closest('.card-container');
+
                 const serviceName = cardContainer.querySelector('.card-front .service-title').textContent;
-                const serviceSubtitle = cardContainer.querySelector('.card-front .service-subtitle');
-                const serviceText = serviceSubtitle ?
-                    `${serviceName} - ${serviceSubtitle.textContent}` :
-                    serviceName;
+                const serviceSubtitle = cardContainer.querySelector('.card-front .service-subtitle')?.textContent || '';
+                const serviceDuration = cardContainer.querySelector('.card-front .service-duration')?.textContent || '';
+                const servicePrice = cardContainer.querySelector('.card-front .service-price')?.textContent || '';
+
+                const serviceText = `${serviceName}${serviceSubtitle ? ' - ' + serviceSubtitle : ''}`;
+
+
                 const selectedLocation = card.querySelector('.checkbox.checked');
                 const locationText = selectedLocation ?
                     selectedLocation.closest('.location-option').querySelector('span').textContent :
                     'Unidade 2';
 
-                alert(`✅ Agendamento confirmado para ${serviceText} na ${locationText}!`);
+                localStorage.setItem('servicoSelecionado', JSON.stringify({
+                    servico: serviceText,
+                    duracao: serviceDuration,
+                    preco: servicePrice,
+                    unidade: locationText
+                }));
 
-                setTimeout(() => {
-                    card.classList.remove('flipped');
-                }, 1000);
+                window.location.href = 'agendamento.html';
             });
         });
 
-        // 🔸 Seleção de unidades (checkbox)
+
+        // Seleção de unidades (checkbox)
         checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('click', function() {
+            checkbox.addEventListener('click', function () {
                 const card = this.closest('.card');
                 const cardCheckboxes = card.querySelectorAll('.checkbox');
                 cardCheckboxes.forEach(cb => {
@@ -137,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // 🔸 Filtro de categorias
+        // Filtro de categorias
         function filterServiceCards(category) {
             cardContainers.forEach(container => {
                 if (category === 'todos' || container.getAttribute('data-category') === category) {

@@ -1,7 +1,3 @@
-body {
-    font-family: var(--font-sans);
-}
-
 .navbar {
     background-color: var(--color-white);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);

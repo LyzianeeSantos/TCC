@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-sans);
   text-align: center;
 }
 
