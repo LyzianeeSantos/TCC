@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('painelCarregado', function () {
   const btnConsultar = document.getElementById('btn-consultar')
   const btnLimpar = document.getElementById('btn-limpar')
   const clientNameInput = document.getElementById('client-name')
@@ -24,8 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       if (!response.ok) throw new Error('Erro ao buscar agendamentos')
       const data = await response.json()
+      console.log('Dados recebidos do back:', data);
       renderAppointments(data)
-      console.log('passando aqui', data)
     } catch (error) {
       console.error(error)
       appointmentsTable.innerHTML = `<tr><td colspan="6">Erro ao carregar dados.</td></tr>`

@@ -5,6 +5,8 @@ export function loadAdm() {
       .then(response => response.text())
       .then(data => {
         adm.innerHTML = data
+
+        document.dispatchEvent(new Event('painelCarregado'))
       })
       .catch(error => console.error('Erro ao carregar painel administrador:', error))
   }
