@@ -24,6 +24,7 @@ document.addEventListener('painelCarregado', function () {
       })
       if (!response.ok) throw new Error('Erro ao buscar agendamentos')
       const data = await response.json()
+      originalAppointments = data;
       console.log('Dados recebidos do back:', data);
       renderAppointments(data)
     } catch (error) {
@@ -32,6 +33,9 @@ document.addEventListener('painelCarregado', function () {
     } finally {
       hideLoading()
     }
+
+
+
   }
 
 
@@ -160,6 +164,59 @@ document.addEventListener('painelCarregado', function () {
     })
   }
 
+  tabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      // Remove active de todas
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const filter = tab.dataset.filter;
+      filterByTab(filter);
+    });
+  });
+
+  function filterByTab(filter) {
+    const today = new Date();
+    let filteredAppointments = [];
+
+    switch (filter) {
+      case 'todos':
+        filteredAppointments = originalAppointments; // array com todos os agendamentos
+        break;
+
+      case 'mensal':
+        filteredAppointments = originalAppointments.filter(a => {
+          const date = new Date(a.data);
+          return date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
+        });
+        break;
+
+      case 'semanal':
+        filteredAppointments = originalAppointments.filter(a => {
+          const date = new Date(a.data);
+          const startOfWeek = new Date(today);
+          startOfWeek.setDate(today.getDate() - today.getDay()); // domingo
+          const endOfWeek = new Date(today);
+          endOfWeek.setDate(startOfWeek.getDate() + 6); // sábado
+          return date >= startOfWeek && date <= endOfWeek;
+        });
+        break;
+
+      case 'diario':
+        filteredAppointments = originalAppointments.filter(a => {
+          const date = new Date(a.data);
+          return date.toDateString() === today.toDateString();
+        });
+        break;
+    }
+
+    renderAppointments(filteredAppointments);
+  }
+
+
+
   // Botões ativados
   btnConsultar.addEventListener('click', function () {
     showLoading()
@@ -178,4 +235,6 @@ document.addEventListener('painelCarregado', function () {
 
   // Busca inicial no carregamento da página
   fetchAppointments()
+
+
 })
