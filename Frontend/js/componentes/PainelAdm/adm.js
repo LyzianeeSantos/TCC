@@ -15,7 +15,10 @@ document.addEventListener('painelCarregado', function () {
   async function fetchAppointments() {
     showLoading()
     try {
-      const token = localStorage.getItem('token') || 'SEU_TOKEN_AQUI'
+      const usuarioStorage = localStorage.getItem('usuario')
+      const usuario = usuarioStorage ? JSON.parse(usuarioStorage) : null
+      const token = usuario?.token
+
       const response = await fetch('http://localhost:3000/agendamentos', {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -24,8 +27,8 @@ document.addEventListener('painelCarregado', function () {
       })
       if (!response.ok) throw new Error('Erro ao buscar agendamentos')
       const data = await response.json()
-      originalAppointments = data;
-      console.log('Dados recebidos do back:', data);
+      originalAppointments = data
+      console.log('Dados recebidos do back:', data)
       renderAppointments(data)
     } catch (error) {
       console.error(error)
@@ -166,53 +169,53 @@ document.addEventListener('painelCarregado', function () {
 
   tabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
-      e.preventDefault();
+      e.preventDefault()
 
       // Remove active de todas
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
+      tabs.forEach(t => t.classList.remove('active'))
+      tab.classList.add('active')
 
-      const filter = tab.dataset.filter;
-      filterByTab(filter);
-    });
-  });
+      const filter = tab.dataset.filter
+      filterByTab(filter)
+    })
+  })
 
   function filterByTab(filter) {
-    const today = new Date();
-    let filteredAppointments = [];
+    const today = new Date()
+    let filteredAppointments = []
 
     switch (filter) {
       case 'todos':
         filteredAppointments = originalAppointments; // array com todos os agendamentos
-        break;
+        break
 
       case 'mensal':
         filteredAppointments = originalAppointments.filter(a => {
-          const date = new Date(a.data);
-          return date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
-        });
-        break;
+          const date = new Date(a.data)
+          return date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()
+        })
+        break
 
       case 'semanal':
         filteredAppointments = originalAppointments.filter(a => {
-          const date = new Date(a.data);
-          const startOfWeek = new Date(today);
-          startOfWeek.setDate(today.getDate() - today.getDay()); // domingo
-          const endOfWeek = new Date(today);
-          endOfWeek.setDate(startOfWeek.getDate() + 6); // sábado
-          return date >= startOfWeek && date <= endOfWeek;
-        });
-        break;
+          const date = new Date(a.data)
+          const startOfWeek = new Date(today)
+          startOfWeek.setDate(today.getDate() - today.getDay()) // domingo
+          const endOfWeek = new Date(today)
+          endOfWeek.setDate(startOfWeek.getDate() + 6) // sábado
+          return date >= startOfWeek && date <= endOfWeek
+        })
+        break
 
       case 'diario':
         filteredAppointments = originalAppointments.filter(a => {
-          const date = new Date(a.data);
-          return date.toDateString() === today.toDateString();
-        });
-        break;
+          const date = new Date(a.data)
+          return date.toDateString() === today.toDateString()
+        })
+        break
     }
 
-    renderAppointments(filteredAppointments);
+    renderAppointments(filteredAppointments)
   }
 
 
