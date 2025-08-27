@@ -1,84 +1,112 @@
 <main class="container">
-    <!-- Title -->
-    <div class="title">
-        <i class="bi bi-calendar title-icon"></i>
-        <h2>Agendamentos</h2>
-    </div>
+    <!-- Nav Tabs -->
+    <ul class="nav nav-tabs mb-4" id="admTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="consulta-tab" data-bs-toggle="tab" data-bs-target="#consulta"
+                type="button" role="tab" aria-controls="consulta" aria-selected="true">
+                <i class="bi bi-search"></i> Consulta
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="servicos-tab" data-bs-toggle="tab" data-bs-target="#servicos"
+                type="button" role="tab" aria-controls="servicos" aria-selected="false">
+                <i class="bi bi-plus-circle"></i> Serviços
+            </button>
+        </li>
+    </ul>
 
-    <!-- Search Filters -->
-    <div class="filters">
-        <div class="filter-group">
-            <label for="client-name">Nome cliente</label>
-            <div class="filter-input">
-                <input id="client-name" type="text" placeholder="Digite o nome do cliente">
-                <i class="bi bi-search filter-icon"></i>
+    <!-- Conteúdo das Tabs -->
+    <div class="tab-content" id="admTabsContent">
+
+        <!-- Tab Consulta -->
+        <div class="tab-pane fade show active" id="consulta" role="tabpanel" aria-labelledby="consulta-tab">
+            <!-- Title -->
+            <div class="title">
+                <i class="bi bi-calendar title-icon"></i>
+                <h2>Agendamentos</h2>
+            </div>
+
+            <!-- Search Filters -->
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="client-name">Nome cliente</label>
+                    <div class="filter-input">
+                        <input id="client-name" type="text" placeholder="Digite o nome do cliente">
+                        <i class="bi bi-search filter-icon"></i>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label for="date-filter">Filtrar data</label>
+                    <div class="filter-input">
+                        <input id="date-filter" type="date">
+                        <i class="bi bi-calendar filter-icon"></i>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label for="unit">Unidade</label>
+                    <div class="filter-input">
+                        <input id="unit" type="text" placeholder="Selecione a unidade">
+                        <i class="bi bi-search filter-icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Actions -->
+            <div class="filter-actions">
+                <button id="btn-consultar" class="btn-primary">
+                    <i class="bi bi-search"></i> Consultar
+                </button>
+                <button id="btn-limpar" class="btn-secondary">
+                    <i class="bi bi-arrow-clockwise"></i> Limpar Filtros
+                </button>
+            </div>
+
+            <!-- Tabs de Filtro de Consulta -->
+            <div class="tabs">
+                <a href="#" class="tab active" data-filter="todos">Todos</a>
+                <a href="#" class="tab" data-filter="mensal">Mensal</a>
+                <a href="#" class="tab" data-filter="semanal">Semanal</a>
+                <a href="#" class="tab" data-filter="diario">Diário</a>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading" class="loading hidden">
+                <i class="bi bi-hourglass-split"></i> Consultando agendamentos...
+            </div>
+
+            <!-- Appointments Table -->
+            <div class="table-container" id="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Serviço</th>
+                            <th>Data e hora</th>
+                            <th>Unidade</th>
+                            <th>Valor</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointments-table">
+                        <!-- Linhas inseridas via JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Total Balance -->
+            <div class="total-balance" id="total-balance">
+                Saldo total: R$0,00
             </div>
         </div>
 
-        <div class="filter-group">
-            <label for="date-filter">Filtrar data</label>
-            <div class="filter-input">
-                <input id="date-filter" type="date">
-                <i class="bi bi-calendar filter-icon"></i>
+        <!-- Tab Serviços -->
+        <!-- <div class="tab-pane fade" id="servicos" role="tabpanel" aria-labelledby="servicos-tab">
+            <div id="container-admServico">
+                
             </div>
-        </div>
+        </div> -->
 
-        <div class="filter-group">
-            <label for="unit">Unidade</label>
-            <div class="filter-input">
-                <input id="unit" type="text" placeholder="Selecione a unidade">
-                <i class="bi bi-search filter-icon"></i>
-            </div>
-        </div>
-    </div>
-
-    <!-- Filter Actions -->
-    <div class="filter-actions">
-        <button id="btn-consultar" class="btn-primary">
-            <i class="bi bi-search"></i>
-            Consultar
-        </button>
-        <button id="btn-limpar" class="btn-secondary">
-            <i class="bi bi-arrow-clockwise"></i>
-            Limpar Filtros
-        </button>
-    </div>
-
-    <!-- Tabs -->
-    <div class="tabs">
-        <a href="#" class="tab active" data-filter="todos">Todos</a>
-        <a href="#" class="tab" data-filter="mensal">Mensal</a>
-        <a href="#" class="tab" data-filter="semanal">Semanal</a>
-        <a href="#" class="tab" data-filter="diario">Diário</a>
-    </div>
-
-    <!-- Loading State -->
-    <div id="loading" class="loading hidden">
-        <i class="bi bi-hourglass-split"></i>
-        Consultando agendamentos...
-    </div>
-
-    <!-- Appointments Table -->
-    <div class="table-container" id="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Cliente</th>
-                    <th>Serviço</th>
-                    <th>Data e hora</th>
-                    <th>Unidade</th>
-                    <th>Valor</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody id="appointments-table">
-                <!-- Linhas inseridas via JS -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Total Balance -->
-    <div class="total-balance" id="total-balance">
-        Saldo total: R$0,00
     </div>
 </main>

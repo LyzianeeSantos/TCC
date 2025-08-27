@@ -1,0 +1,93 @@
+<div class="tab-pane fade" id="servicos" role="tabpanel" aria-labelledby="servicos-tab"></div>
+
+<main class="containerServicoAdm">
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Gerenciar Serviços</h1>
+      <button id="newServiceBtn" class="btn btn-primary">Cadastrar novo serviço</button>
+    </div>
+
+    <!-- Tabela de serviços -->
+    <div class="services-container">
+      <div class="table-header">
+        <h2>Lista de Serviços</h2>
+        <div class="table-info">
+          <span id="servicesCount">0 serviços cadastrados</span>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="services-table" id="servicesTable">
+          <thead>
+            <tr>
+              <th>Nome do Serviço</th>
+              <th>Descrição</th>
+              <th>Preço</th>
+              <th>Duração (min)</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="servicesTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display:none">
+        <div class="empty-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+            <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+          </svg>
+        </div>
+        <h3>Nenhum serviço cadastrado</h3>
+        <p>Comece criando seu primeiro serviço clicando no botão "Novo Serviço"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de confirmação -->
+  <div class="modal-overlay" id="confirmModal">
+    <div class="modal modal-small">
+      <div class="modal-header">
+        <h2>Confirmar Exclusão</h2>
+      </div>
+      <div class="modal-body">
+        <p>Tem certeza que deseja excluir este serviço?</p>
+        <p class="warning-text">Esta ação não pode ser desfeita.</p>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="cancelDeleteBtn">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Excluir</button>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+
+<!-- Modal de Cadastro de Serviço -->
+
+<div id="serviceModal" class="modal">
+  <div class="modal-content">
+    <h2>Cadastrar Serviço</h2>
+    <form id="serviceForm">
+      <label>Nome</label>
+      <input type="text" id="serviceName" required>
+
+      <label>Descrição</label>
+      <textarea id="serviceDescription"></textarea>
+
+      <label>Preço</label>
+      <input type="number" id="servicePrice" step="0.01" required>
+
+      <label>Duração (min)</label>
+      <input type="number" id="serviceDuration" required>
+
+      <div class="modal-actions">
+        <button type="submit">Salvar</button>
+        <button type="button" id="cancelBtn">Cancelar</button>
+      </div>
+    </form>
+    <button id="closeModal" class="close">&times;</button>
+  </div>
+</div>
