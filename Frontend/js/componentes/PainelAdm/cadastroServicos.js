@@ -11,6 +11,8 @@ document.addEventListener('servicosCarregado', () => {
   const servicesCount = document.getElementById('servicesCount')
   const emptyState = document.getElementById('emptyState')
   const servicesTable = document.getElementById('servicesTable')
+  const confirmDeleteBtn = document.getElementById('confirmDeleteBtn')
+  const cancelDeleteBtn = document.getElementById('cancelDeleteBtn')
 
   let editingServiceId = null
   let serviceToDelete = null
@@ -92,25 +94,42 @@ document.addEventListener('servicosCarregado', () => {
     renderServices()
   })
 
+
   // Editar / Excluir
   servicesTableBody.addEventListener('click', async (e) => {
-    if (e.target.closest('.btn-edit')) {
-      const id = e.target.closest('.btn-edit').dataset.id
+    if (e.target.classList.contains('btn-edit')) {
+      const id = e.target.dataset.id
       const res = await fetch(`http://localhost:3000/servicos/${id}`)
       const service = await res.json()
       editingServiceId = service.id
       modalTitle.textContent = 'Editar Serviço'
-      // saveBtn.textContent = 'Atualizar Serviço'
       serviceForm.serviceName.value = service.nome
       serviceForm.serviceDescription.value = service.descricao || ''
       serviceForm.servicePrice.value = service.preco
       serviceForm.serviceDuration.value = service.duracaoMin
       openModal(serviceModal)
     }
-    if (e.target.closest('.btn-delete')) {
-      serviceToDelete = e.target.closest('.btn-delete').dataset.id
+
+    if (e.target.classList.contains('btn-delete')) {
+      serviceToDelete = e.target.dataset.id
       openModal(confirmModal)
     }
+  })
+
+  confirmDeleteBtn.addEventListener('click', async () => {
+    if (serviceToDelete) {
+      await fetch(`http://localhost:3000/servicos/${serviceToDelete}`, {
+        method: 'DELETE'
+      })
+      serviceToDelete = null
+      closeModal(confirmModal)
+      renderServices()
+    }
+  })
+
+  cancelDeleteBtn.addEventListener('click', () => {
+    serviceToDelete = null
+    closeModal(confirmModal)
   })
 
   renderServices()
