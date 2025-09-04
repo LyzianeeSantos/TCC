@@ -1,3 +1,5 @@
+import { showAlert } from '../alert/alert.js'
+
 document.addEventListener('DOMContentLoaded', function () {
 
     const dadosSalvos = JSON.parse(localStorage.getItem('servicoSelecionado'))
@@ -9,200 +11,148 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('.service-location').textContent = `Loc: ${dadosSalvos.unidade}`
     }
 
-    // Calendar functionality
-    const calendarDays = document.getElementById('calendarDays');
-    const calendarMonth = document.querySelector('.calendar-month');
-    const timeSlots = document.querySelectorAll('.time-slot');
-    const prevMonthBtn = document.getElementById('prevMonth');
-    const nextMonthBtn = document.getElementById('nextMonth');
-    const availabilityText = document.querySelector('.availability-text');
+    const calendarDays = document.getElementById('calendarDays')
+    const calendarMonth = document.querySelector('.calendar-month')
+    const timeSlots = document.querySelectorAll('.time-slot')
+    const prevMonthBtn = document.getElementById('prevMonth')
+    const nextMonthBtn = document.getElementById('nextMonth')
+    const availabilityText = document.querySelector('.availability-text')
 
-    // Get current date
-    const currentDate = new Date();
-    let currentYear = currentDate.getFullYear();
-    let currentMonth = currentDate.getMonth(); // 0-11
+    const currentDate = new Date()
+    let currentYear = currentDate.getFullYear()
+    let currentMonth = currentDate.getMonth()
 
-    // Selected date (default to current date)
-    let selectedDay = currentDate.getDate();
-    let selectedMonth = currentMonth;
-    let selectedYear = currentYear;
-    let selectedTime = '13:00'; // Default selected time
+    let selectedDay = currentDate.getDate()
+    let selectedMonth = currentMonth
+    let selectedYear = currentYear
+    let selectedTime = '13:00'
 
-    // Month names in Portuguese
     const monthNames = [
         'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
         'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-    ];
+    ]
 
-    // Day names in Portuguese
-    const dayNames = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    const dayNames = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
 
-    // Generate calendar for a specific month and year
     function generateCalendar(month, year) {
-        calendarDays.innerHTML = '';
+        calendarDays.innerHTML = ''
+        calendarMonth.textContent = `${monthNames[month]} ${year}`
 
-        // Update month and year display
-        calendarMonth.textContent = `${monthNames[month]} ${year}`;
+        const firstDay = new Date(year, month, 1).getDay()
+        const daysInMonth = new Date(year, month + 1, 0).getDate()
 
-        // Get the first day of the month (0 = Sunday, 1 = Monday, etc.)
-        const firstDay = new Date(year, month, 1).getDay();
-
-        // Get the number of days in the month
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-        // Add empty cells for days before the 1st of the month
         for (let i = 0; i < firstDay; i++) {
-            const emptyDay = document.createElement('div');
-            emptyDay.className = 'day empty';
-            calendarDays.appendChild(emptyDay);
+            const emptyDay = document.createElement('div')
+            emptyDay.className = 'day empty'
+            calendarDays.appendChild(emptyDay)
         }
 
-        // Add days of the month
         for (let day = 1; day <= daysInMonth; day++) {
-            const dayElement = document.createElement('button');
-            dayElement.className = 'day';
-            dayElement.textContent = day;
+            const dayElement = document.createElement('button')
+            dayElement.className = 'day'
+            dayElement.textContent = day
 
-            // Check if this day is today
-            const isToday = day === currentDate.getDate() &&
+            if (day === currentDate.getDate() &&
                 month === currentDate.getMonth() &&
-                year === currentDate.getFullYear();
-
-            if (isToday) {
-                dayElement.classList.add('today');
+                year === currentDate.getFullYear()) {
+                dayElement.classList.add('today')
             }
 
-            // Check if this day is selected
-            const isSelected = day === selectedDay &&
+            if (day === selectedDay &&
                 month === selectedMonth &&
-                year === selectedYear;
-
-            if (isSelected) {
-                dayElement.classList.add('selected');
+                year === selectedYear) {
+                dayElement.classList.add('selected')
             }
 
-            // Add click event
             dayElement.addEventListener('click', function () {
-                // Remove selected class from all days
-                document.querySelectorAll('.day').forEach(d => {
-                    d.classList.remove('selected');
-                });
+                document.querySelectorAll('.day').forEach(d => d.classList.remove('selected'))
+                this.classList.add('selected')
 
-                // Add selected class to clicked day
-                this.classList.add('selected');
+                selectedDay = day
+                selectedMonth = month
+                selectedYear = year
 
-                // Update selected date
-                selectedDay = day;
-                selectedMonth = month;
-                selectedYear = year;
+                const selectedDate = new Date(selectedYear, selectedMonth, selectedDay)
+                const dayOfWeek = dayNames[selectedDate.getDay()]
+                const formattedDate = `${selectedDay} de ${monthNames[selectedMonth].toLowerCase()} de ${selectedYear}`
 
-                // Get day of week for the selected date
-                const selectedDate = new Date(selectedYear, selectedMonth, selectedDay);
-                const dayOfWeek = dayNames[selectedDate.getDay()];
+                availabilityText.textContent = `Disponibilidade para ${dayOfWeek.toLowerCase()}, ${formattedDate}`
+                document.querySelector('.service-date').textContent = `${formattedDate} às ${selectedTime}`
+            })
 
-                // Format date in Portuguese
-                const formattedDate = `${selectedDay} de ${monthNames[selectedMonth].toLowerCase()} de ${selectedYear}`;
-
-                // Update availability text
-                availabilityText.textContent = `Disponibilidade para ${dayOfWeek.toLowerCase()}, ${formattedDate}`;
-
-                // Update appointment info
-                document.querySelector('.service-date').textContent =
-                    `${formattedDate} às ${selectedTime}`;
-            });
-
-            calendarDays.appendChild(dayElement);
+            calendarDays.appendChild(dayElement)
         }
     }
 
-    // Initialize calendar with current month and year
-    generateCalendar(currentMonth, currentYear);
+    generateCalendar(currentMonth, currentYear)
 
-    // Month navigation
     prevMonthBtn.addEventListener('click', function () {
-        currentMonth--;
+        currentMonth--
         if (currentMonth < 0) {
-            currentMonth = 11;
-            currentYear--;
+            currentMonth = 11
+            currentYear--
         }
-        generateCalendar(currentMonth, currentYear);
-    });
+        generateCalendar(currentMonth, currentYear)
+    })
 
     nextMonthBtn.addEventListener('click', function () {
-        currentMonth++;
+        currentMonth++
         if (currentMonth > 11) {
-            currentMonth = 0;
-            currentYear++;
+            currentMonth = 0
+            currentYear++
         }
-        generateCalendar(currentMonth, currentYear);
-    });
+        generateCalendar(currentMonth, currentYear)
+    })
 
-    // Time slot selection
     timeSlots.forEach(slot => {
-        // Set default selected time slot
         if (slot.dataset.time === selectedTime) {
-            slot.classList.add('selected');
+            slot.classList.add('selected')
         }
 
         slot.addEventListener('click', function () {
-            // Remove selected class from all time slots
-            timeSlots.forEach(s => {
-                s.classList.remove('selected');
-            });
+            timeSlots.forEach(s => s.classList.remove('selected'))
+            this.classList.add('selected')
+            selectedTime = this.dataset.time
 
-            // Add selected class to clicked time slot
-            this.classList.add('selected');
-            selectedTime = this.dataset.time;
+            const formattedDate = `${selectedDay} de ${monthNames[selectedMonth].toLowerCase()} de ${selectedYear}`
+            document.querySelector('.service-date').textContent = `${formattedDate} às ${selectedTime}`
+        })
+    })
 
-            // Format date in Portuguese
-            const formattedDate = `${selectedDay} de ${monthNames[selectedMonth].toLowerCase()} de ${selectedYear}`;
-
-            // Update appointment info
-            document.querySelector('.service-date').textContent =
-                `${formattedDate} às ${selectedTime}`;
-        });
-    });
-
-    // Show all times button
     document.querySelector('.show-all-btn').addEventListener('click', function () {
-        alert('Mostrar todos os horários não implementado nesta demonstração');
-    });
+        alert('Mostrar todos os horários não implementado nesta demonstração')
+    })
 
     async function confirmarAgendamento() {
         try {
-            // Pegar token salvo no localStorage (ajuste se estiver em sessionStorage ou secureStorage)
             const usuarioStorage = localStorage.getItem('usuario')
             const usuario = usuarioStorage ? JSON.parse(usuarioStorage) : null
             const token = usuario?.token
 
             if (!token) {
-                alert('Erro: token não encontrado. Faça login novamente.');
-                return;
+                showAlert('Erro: token não encontrado. Faça login novamente.', 'error')
+                return
             }
 
-            // Pegar dados salvos do serviço
-            const dadosSalvos = JSON.parse(localStorage.getItem('servicoSelecionado'));
+            const dadosSalvos = JSON.parse(localStorage.getItem('servicoSelecionado'))
             if (!dadosSalvos) {
-                alert('Erro: nenhum serviço selecionado.');
-                return;
+                showAlert('Erro: nenhum serviço selecionado.', 'error')
+                return
             }
 
-            // Montar data no formato YYYY-MM-DD (sem UTC)
-            const dataFormatada = `${selectedYear}-${String(selectedMonth + 1).padStart(2, '0')}-${String(selectedDay).padStart(2, '0')}`;
+            const dataFormatada = `${selectedYear}-${String(selectedMonth + 1).padStart(2, '0')}-${String(selectedDay).padStart(2, '0')}`
 
-            // Montar o body conforme a API espera
             const body = {
                 data: dataFormatada,
                 hora: selectedTime,
                 status: "aguardando confirmação",
-                clienteId: usuario.id,  
+                clienteId: usuario.id,
                 servicoId: dadosSalvos.id,
                 localizacao: dadosSalvos.unidade
-            };
+            }
 
-            console.log("Enviando body:", body);
+            console.log("Enviando body:", body)
 
-            // Fazer a requisição POST
             const response = await fetch('http://localhost:3000/agendamentos', {
                 method: 'POST',
                 headers: {
@@ -210,35 +160,30 @@ document.addEventListener('DOMContentLoaded', function () {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(body)
-            });
+            })
 
             if (!response.ok) {
-                const erro = await response.json();
-                console.error("Erro:", erro);
-                alert(`Erro ao cadastrar agendamento: ${erro.message || response.statusText}`);
-                return;
+                const erro = await response.json()
+                console.error("Erro:", erro)
+                showAlert(`Erro ao cadastrar agendamento: ${erro.message || response.statusText}`, 'error')
+                return
             }
 
-            const resultado = await response.json();
-            console.log("Agendamento cadastrado com sucesso:", resultado);
-            alert("Agendamento confirmado com sucesso!");
+            const resultado = await response.json()
+            console.log("Agendamento cadastrado com sucesso:", resultado)
+            showAlert("Agendamento confirmado com sucesso!", 'success')
 
         } catch (err) {
-            console.error("Erro inesperado:", err);
-            alert("Erro inesperado ao cadastrar agendamento.");
+            console.error("Erro inesperado:", err)
+            showAlert("Erro inesperado ao cadastrar agendamento.", 'error')
         }
     }
 
-    // Evento do botão confirm
-    document.querySelector('.btn-confirm').addEventListener('click', confirmarAgendamento);
+    document.querySelector('.btn-confirm').addEventListener('click', confirmarAgendamento)
 
-    // Set initial availability text
-    const initialDate = new Date(selectedYear, selectedMonth, selectedDay);
-    const initialDayOfWeek = dayNames[initialDate.getDay()];
-    const initialFormattedDate = `${selectedDay} de ${monthNames[selectedMonth].toLowerCase()} de ${selectedYear}`;
-    availabilityText.textContent = `Disponibilidade para ${initialDayOfWeek.toLowerCase()}, ${initialFormattedDate}`;
-
-    // Set initial appointment info
-    document.querySelector('.service-date').textContent =
-        `${initialFormattedDate} às ${selectedTime}`;
-});
+    const initialDate = new Date(selectedYear, selectedMonth, selectedDay)
+    const initialDayOfWeek = dayNames[initialDate.getDay()]
+    const initialFormattedDate = `${selectedDay} de ${monthNames[selectedMonth].toLowerCase()} de ${selectedYear}`
+    availabilityText.textContent = `Disponibilidade para ${initialDayOfWeek.toLowerCase()}, ${initialFormattedDate}`
+    document.querySelector('.service-date').textContent = `${initialFormattedDate} às ${selectedTime}`
+})
