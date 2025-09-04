@@ -1,5 +1,6 @@
 import { showAlert } from '../alert/alert.js'
 import { atualizarNavbar } from '../auth.js'
+import {parseJwt} from '../global/token/extraiId.js'
 
 export function loadLogin() {
   function waitForElement(selector, timeout = 5000) {
@@ -105,12 +106,14 @@ export function loadLogin() {
                 const data = await res.json()
 
                 if (res.ok) {
+                  const payload = parseJwt(data.token);
                   showAlert('✅ Login realizado com sucesso!', 'success')
 
                   // Salvar dados no localStorage
                   localStorage.setItem('usuario', JSON.stringify({
+                    id: payload.id,
                     nome: data.nome,
-                    tipo: data.tipo,
+                    tipo: payload.tipo,
                     token: data.token
                   }))
 

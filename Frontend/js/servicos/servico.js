@@ -28,7 +28,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
             servicos.forEach(servico => {
                 const cardHTML = `
-                <div class="card-container" data-category="${servico.categoria || 'todos'}">
+                <div class="card-container"
+                 data-id="${servico.id}"
+                 data-category="${servico.categoria || 'todos'}">
                     <div class="card">
                         <div class="card-front">
                             <h3 class="service-title">${servico.nome}</h3>
@@ -71,27 +73,6 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Erro:', error)
         })
 
-    function ativarTooltips() {
-        document.querySelectorAll('.location-option').forEach(option => {
-            const endereco = option.dataset.endereco
-
-            const tooltip = document.createElement('div')
-            tooltip.className = 'location-tooltip'
-            tooltip.textContent = endereco
-
-            option.appendChild(tooltip) // adiciona fora do checkbox
-
-            option.addEventListener('mouseenter', () => {
-                tooltip.style.display = 'block'
-                setTimeout(() => { tooltip.style.opacity = '1' }, 0)
-            })
-            option.addEventListener('mouseleave', () => {
-                tooltip.style.opacity = '0'
-                setTimeout(() => { tooltip.style.display = 'none' }, 200)
-            })
-        })
-    }
-
     document.querySelectorAll('.card-back').forEach(cardBack => {
         const locationOptions = cardBack.querySelectorAll('.location-option')
 
@@ -103,8 +84,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         })
     })
-
-
 
     // Função que ativa as interações (filtros, flip, seleção)
     function ativarInteracoes() {
@@ -148,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
             button.addEventListener('click', function () {
                 const card = this.closest('.card')
                 const cardContainer = card.closest('.card-container')
+                const servicoId = Number(cardContainer.dataset.id)
 
                 const serviceName = cardContainer.querySelector('.card-front .service-title').textContent
                 const serviceSubtitle = cardContainer.querySelector('.card-front .service-subtitle')?.textContent || ''
@@ -156,13 +136,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const serviceText = `${serviceName}${serviceSubtitle ? ' - ' + serviceSubtitle : ''}`
 
-
                 const selectedLocation = card.querySelector('.checkbox.checked')
                 const locationText = selectedLocation ?
                     selectedLocation.closest('.location-option').querySelector('span').textContent :
                     'Unidade 2'
 
                 localStorage.setItem('servicoSelecionado', JSON.stringify({
+                    id: servicoId,
                     servico: serviceText,
                     duracao: serviceDuration,
                     preco: servicePrice,
@@ -172,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.location.href = 'agendamento.html'
             })
         })
-
 
         // Seleção de unidades (checkbox)
         checkboxes.forEach(checkbox => {

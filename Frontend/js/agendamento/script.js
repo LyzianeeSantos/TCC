@@ -168,10 +168,69 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('Mostrar todos os horários não implementado nesta demonstração');
     });
 
-    // Confirm appointment button
-    document.querySelector('.btn-confirm').addEventListener('click', function () {
-        alert('Agendamento confirmado! (Demonstração)');
-    });
+    async function confirmarAgendamento() {
+        try {
+            // Pegar token salvo no localStorage (ajuste se estiver em sessionStorage ou secureStorage)
+            const usuarioStorage = localStorage.getItem('usuario')
+            const usuario = usuarioStorage ? JSON.parse(usuarioStorage) : null
+            const token = usuario?.token
+
+            if (!token) {
+                alert('Erro: token não encontrado. Faça login novamente.');
+                return;
+            }
+
+            // Pegar dados salvos do serviço
+            const dadosSalvos = JSON.parse(localStorage.getItem('servicoSelecionado'));
+            if (!dadosSalvos) {
+                alert('Erro: nenhum serviço selecionado.');
+                return;
+            }
+
+            // Montar data no formato YYYY-MM-DD (sem UTC)
+            const dataFormatada = `${selectedYear}-${String(selectedMonth + 1).padStart(2, '0')}-${String(selectedDay).padStart(2, '0')}`;
+
+            // Montar o body conforme a API espera
+            const body = {
+                data: dataFormatada,
+                hora: selectedTime,
+                status: "aguardando confirmação",
+                clienteId: usuario.id,  
+                servicoId: dadosSalvos.id,
+                localizacao: dadosSalvos.unidade
+            };
+
+            console.log("Enviando body:", body);
+
+            // Fazer a requisição POST
+            const response = await fetch('http://localhost:3000/agendamentos', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+
+            if (!response.ok) {
+                const erro = await response.json();
+                console.error("Erro:", erro);
+                alert(`Erro ao cadastrar agendamento: ${erro.message || response.statusText}`);
+                return;
+            }
+
+            const resultado = await response.json();
+            console.log("Agendamento cadastrado com sucesso:", resultado);
+            alert("Agendamento confirmado com sucesso!");
+
+        } catch (err) {
+            console.error("Erro inesperado:", err);
+            alert("Erro inesperado ao cadastrar agendamento.");
+        }
+    }
+
+    // Evento do botão confirm
+    document.querySelector('.btn-confirm').addEventListener('click', confirmarAgendamento);
 
     // Set initial availability text
     const initialDate = new Date(selectedYear, selectedMonth, selectedDay);
