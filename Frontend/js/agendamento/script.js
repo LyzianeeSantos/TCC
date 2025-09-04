@@ -173,6 +173,11 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("Agendamento cadastrado com sucesso:", resultado)
             showAlert("Agendamento confirmado com sucesso!", 'success')
 
+            setTimeout(() => {
+                window.location.href = 'index.html'
+            }, 1800)
+
+
         } catch (err) {
             console.error("Erro inesperado:", err)
             showAlert("Erro inesperado ao cadastrar agendamento.", 'error')
