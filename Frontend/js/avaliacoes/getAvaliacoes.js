@@ -98,4 +98,3 @@ function initTestimonialCarousel(avaliacoes) {
     carouselContainer.addEventListener('mouseenter', () => clearInterval(slideInterval))
     carouselContainer.addEventListener('mouseleave', startAutoSlide)
 }
-

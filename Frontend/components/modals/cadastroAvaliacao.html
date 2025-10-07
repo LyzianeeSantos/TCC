@@ -1,0 +1,35 @@
+<div id="modalAvaliacao" class="modal">
+  <div class="modal-content">
+    <span class="fechar">&times;</span>
+    <h2 class="titulo-avaliacao">Formulário de Avaliação</h2>
+    <div class="estrelas">
+      <span>★</span><span>★</span><span>★</span>
+    </div>
+    <p class="subtitulo">Sua opinião é essencial!</p>
+
+    <form id="formAvaliacao">
+      <!-- <label for="servico">Serviço realizado</label>
+      <select id="servico" name="servico" required>
+        <option value="">Selecione</option>
+        <option value="Depilação">Depilação</option>
+        <option value="Massagem">Massagem</option>
+        <option value="Limpeza de Pele">Limpeza de Pele</option>
+      </select> -->
+
+      <label for="estrelas">Quantidade de estrelas</label>
+      <select id="estrelas" name="estrelas" required>
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+      </select>
+
+      <label for="comentario">Deixe seu comentário</label>
+      <textarea id="comentario" name="comentario" rows="4" required></textarea>
+
+      <button type="submit" class="btn-enviar" id="enviarAvaliacaoBtn">Enviar</button>
+
+    </form>
+  </div>
+</div>
