@@ -1,109 +1,114 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Elementos do DOM
-    const mobileMenuButton = document.querySelector('.mobile-menu-button');
-    const closeMenuButton = document.getElementById('close-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabPanes = document.querySelectorAll('.tab-pane');
-    
-    const packageCards = document.querySelectorAll('.package-card[data-package]');
-    
-    const bookingButtons = document.querySelectorAll('.book-button, .booking-button, .mobile-booking-button, .cta-button');
-    const closeModalButton = document.getElementById('close-modal-btn');
-    const bookingModal = document.getElementById('booking-modal');
-    const bookingForm = document.getElementById('booking-form');
-    
-    // Toggle Menu Mobile
-    if (mobileMenuButton) {
-        mobileMenuButton.addEventListener('click', function() {
-            mobileMenu.classList.remove('hidden');
-        });
-    }
-    
-    if (closeMenuButton) {
-        closeMenuButton.addEventListener('click', function() {
-            mobileMenu.classList.add('hidden');
-        });
-    }
-    
-    // Tabs
+import { showAlert } from '../alert/alert.js'
+import { loadLogin } from '../componentes/login-registro.js'
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  // ---------------------------
+  // 📱 Menu Mobile
+  // ---------------------------
+  const mobileMenuButton = document.querySelector('.mobile-menu-button')
+  const closeMenuButton = document.getElementById('close-menu-btn')
+  const mobileMenu = document.getElementById('mobile-menu')
+
+  if (mobileMenuButton && mobileMenu && closeMenuButton) {
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.remove('hidden')
+    })
+    closeMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden')
+    })
+  }
+
+  // ---------------------------
+  // 🗂️ Tabs (abas de conteúdo)
+  // ---------------------------
+  const tabButtons = document.querySelectorAll('.tab-button')
+  const tabPanes = document.querySelectorAll('.tab-pane')
+
+  if (tabButtons.length > 0 && tabPanes.length > 0) {
     tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const tabId = this.getAttribute('data-tab');
-            
-            // Remover classe active de todos os botões e painéis
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabPanes.forEach(pane => pane.classList.remove('active'));
-            
-            // Adicionar classe active ao botão e painel clicados
-            this.classList.add('active');
-            document.getElementById(`${tabId}-content`).classList.add('active');
-        });
-    });
-    
-    // Seleção de pacotes
+      button.addEventListener('click', function () {
+        const tabId = this.getAttribute('data-tab')
+        tabButtons.forEach(btn => btn.classList.remove('active'))
+        tabPanes.forEach(pane => pane.classList.remove('active'))
+        this.classList.add('active')
+        document.getElementById(`${tabId}-content`)?.classList.add('active')
+      })
+    })
+  }
+
+  // ---------------------------
+  // 🎁 Seleção de pacotes
+  // ---------------------------
+  const packageCards = document.querySelectorAll('.package-card[data-package]')
+  if (packageCards.length > 0) {
     packageCards.forEach(card => {
-        card.addEventListener('click', function() {
-            const packageId = this.getAttribute('data-package');
-            
-            // Toggle da classe selected
-            if (this.classList.contains('selected')) {
-                this.classList.remove('selected');
-            } else {
-                // Remover selected de todos os cards
-                packageCards.forEach(c => c.classList.remove('selected'));
-                // Adicionar selected ao card clicado
-                this.classList.add('selected');
-            }
-        });
-    });
-    
-    // Modal de agendamento
+      card.addEventListener('click', function () {
+        packageCards.forEach(c => c.classList.remove('selected'))
+        this.classList.add('selected')
+      })
+    })
+  }
+
+  // ---------------------------
+  // 📅 Agendamento / Serviços
+  // ---------------------------
+  const botoesAgendar = document.querySelectorAll('.book-button, #cta-booking-btn')
+  botoesAgendar.forEach(botao => {
+    botao.addEventListener('click', (event) => {
+      event.preventDefault()
+
+      const usuario = JSON.parse(localStorage.getItem('usuario'))
+      if (!usuario || !usuario.token) {
+        showAlert('Você precisa estar logado para agendar um serviço.', 'info')
+        loadLogin()
+        return
+      }
+
+      window.location.href = './servicos.html'
+    })
+  })
+
+  // ---------------------------
+  // 🧾 Modal de Agendamento (se existir)
+  // ---------------------------
+  const bookingModal = document.getElementById('booking-modal')
+  const closeModalButton = document.getElementById('close-modal-btn')
+  const bookingForm = document.getElementById('booking-form')
+
+  if (bookingModal) {
+    const bookingButtons = document.querySelectorAll('.booking-button, .mobile-booking-button, .cta-button')
+
     bookingButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.stopPropagation(); // Evitar propagação para o card
-            bookingModal.classList.remove('hidden');
-        });
-    });
-    
+      button.addEventListener('click', (e) => {
+        e.stopPropagation()
+        bookingModal.classList.remove('hidden')
+      })
+    })
+
     if (closeModalButton) {
-        closeModalButton.addEventListener('click', function() {
-            bookingModal.classList.add('hidden');
-        });
+      closeModalButton.addEventListener('click', () => {
+        bookingModal.classList.add('hidden')
+      })
     }
-    
-    // Fechar modal ao clicar fora
-    bookingModal.addEventListener('click', function(e) {
-        if (e.target === bookingModal) {
-            bookingModal.classList.add('hidden');
-        }
-    });
-    
-    // Envio do formulário
+
+    bookingModal.addEventListener('click', (e) => {
+      if (e.target === bookingModal) {
+        bookingModal.classList.add('hidden')
+      }
+    })
+
     if (bookingForm) {
-        bookingForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Coletar dados do formulário
-            const formData = new FormData(this);
-            const bookingData = {
-                name: formData.get('name'),
-                phone: formData.get('phone'),
-                email: formData.get('email'),
-                service: formData.get('service'),
-                date: formData.get('date'),
-                time: formData.get('time')
-            };
-            
-            // Aqui você implementaria a lógica para enviar os dados para um servidor
-            console.log('Dados de agendamento:', bookingData);
-            
-            // Exibir mensagem de sucesso
-            alert('Agendamento solicitado! Entraremos em contato para confirmar.');
-            
-            // Fechar o modal
-            bookingModal.classList.add('hidden');
-        });
+      bookingForm.addEventListener('submit', (e) => {
+        e.preventDefault()
+
+        const formData = new FormData(bookingForm)
+        const bookingData = Object.fromEntries(formData.entries())
+
+        console.log('Dados de agendamento:', bookingData)
+        showAlert('Agendamento solicitado! Entraremos em contato para confirmar.', 'success')
+        bookingModal.classList.add('hidden')
+      })
     }
-});
+  }
+})
