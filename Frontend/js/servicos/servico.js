@@ -27,47 +27,58 @@ document.addEventListener('DOMContentLoaded', function () {
             serviceGrid.innerHTML = '' // Limpa cards anteriores
 
             servicos.forEach(servico => {
+                const nome = servico.nome.toLowerCase();
+                let categoria = 'todos';
+
+                if (nome.includes('pacote')) {
+                    categoria = 'pacote';
+                } else if (nome.includes('terapia') || nome.includes('acupuntura')) {
+                    categoria = 'acupuntura';
+                } else if (nome.includes('depilação') || nome.includes('depilacao')) {
+                    categoria = 'depilacao';
+                }
+
                 const cardHTML = `
-                <div class="card-container"
-                 data-id="${servico.id}"
-                 data-category="${servico.categoria || 'todos'}">
-                    <div class="card">
-                        <div class="card-front">
-                            <h3 class="service-title">${servico.nome}</h3>
-                            <p class="service-subtitle">${servico.descricao}</p>
-                            <p class="service-duration">${formatarDuracao(servico.duracaoMin) || 'Duração a definir'}</p>
-                            <p class="service-price">R$ ${servico.preco.toFixed(2).replace('.', ',')}</p>
-                            <button class="book-button">Agendar agora</button>
-                        </div>
-                        <div class="card-back">
-                            <h3 class="service-title">Escolha a loc.</h3>
-                            <div class="location-option">
-                                <span>Unidade 1</span>
-                                <div class="checkbox"></div>
-                            </div>
-                            <div class="location-option">
-                                <span>Unidade 2</span>
-                                <div class="checkbox checked">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                </div>
-                            </div>
-                            <button class="book-button continue-button">Continuar</button>
-                            <button class="flip-back-button">Voltar</button>
+        <div class="card-container"
+         data-id="${servico.id}"
+         data-category="${categoria}">
+            <div class="card">
+                <div class="card-front">
+                    <h3 class="service-title">${servico.nome}</h3>
+                    <p class="service-subtitle">${servico.descricao}</p>
+                    <p class="service-duration">${formatarDuracao(servico.duracaoMin) || 'Duração a definir'}</p>
+                    <p class="service-price">R$ ${servico.preco.toFixed(2).replace('.', ',')}</p>
+                    <button class="book-button">Agendar agora</button>
+                </div>
+                <div class="card-back">
+                    <h3 class="service-title">Escolha a loc.</h3>
+                    <div class="location-option">
+                        <span>Unidade 1</span>
+                        <div class="checkbox"></div>
+                    </div>
+                    <div class="location-option">
+                        <span>Unidade 2</span>
+                        <div class="checkbox checked">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
                         </div>
                     </div>
+                    <button class="book-button continue-button">Continuar</button>
+                    <button class="flip-back-button">Voltar</button>
                 </div>
-                `
+            </div>
+        </div>
+        `
                 serviceGrid.insertAdjacentHTML('beforeend', cardHTML)
             })
 
-            // Depois de gerar os cards, ativa as interações:
             ativarInteracoes()
             ativarTooltips()
         })
+
 
         .catch(error => {
             console.error('Erro:', error)
