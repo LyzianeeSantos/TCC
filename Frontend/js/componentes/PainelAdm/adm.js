@@ -1,4 +1,4 @@
-// import { showAlert } from '../alert/alert.js'
+import { showAlert } from '../../alert/alert.js'
 
 document.addEventListener('painelCarregado', function () {
   const btnConsultar = document.getElementById('btn-consultar')
@@ -150,7 +150,7 @@ document.addEventListener('painelCarregado', function () {
 
         if (action === 'confirm') {
           // Aqui você pode chamar PATCH para atualizar status
-          alert('Agendamento confirmado!')
+          showAlert('Agendamento confirmado!', 'sucess')
         } else if (action === 'cancel') {
           if (confirm('Tem certeza que deseja cancelar este agendamento?')) {
             try {
@@ -165,7 +165,7 @@ document.addEventListener('painelCarregado', function () {
               if (!response.ok) throw new Error('Erro ao cancelar agendamento')
 
               this.closest('tr').remove()
-              alert('Agendamento cancelado com sucesso!')
+              showAlert('Agendamento cancelado com sucesso!', 'sucess')
             } catch (err) {
               console.error(err)
               showAlert('Erro ao cancelar agendamento', 'error')
