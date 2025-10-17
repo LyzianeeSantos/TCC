@@ -41,8 +41,8 @@ document.addEventListener('servicosCarregado', () => {
           <td><div class="service-duration">${s.duracaoMin} min</div></td>
           <td>
             <div class="service-actions">
-              <button class="btn btn-edit" data-id="${s.id}">Editar</button>
-              <button class="btn btn-delete" data-id="${s.id}">Excluir</button>
+              <button class="btn btn-success" data-id="${s.id}">Editar</button>
+              <button class="btn btn-danger" data-id="${s.id}">Excluir</button>
             </div>
           </td>
         `
@@ -97,7 +97,7 @@ document.addEventListener('servicosCarregado', () => {
 
   // Editar / Excluir
   servicesTableBody.addEventListener('click', async (e) => {
-    if (e.target.classList.contains('btn-edit')) {
+    if (e.target.classList.contains('btn-success')) {
       const id = e.target.dataset.id
       const res = await fetch(`http://localhost:3000/servicos/${id}`)
       const service = await res.json()
@@ -110,7 +110,7 @@ document.addEventListener('servicosCarregado', () => {
       openModal(serviceModal)
     }
 
-    if (e.target.classList.contains('btn-delete')) {
+    if (e.target.classList.contains('btn-danger')) {
       serviceToDelete = e.target.dataset.id
       openModal(confirmModal)
     }
