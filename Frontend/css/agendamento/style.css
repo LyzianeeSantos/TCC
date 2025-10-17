@@ -359,6 +359,12 @@ main {
     margin-bottom: 1.5rem;
 }
 
+.time-slot.ocupado {
+  background-color: red;
+  color: white;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
 
 /* Responsive */
 @media (min-width: 768px) {

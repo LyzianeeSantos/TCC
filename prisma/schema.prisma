@@ -47,8 +47,7 @@ model Avaliacao {
 
 model Agendamento {
   id           Int       @id @default(autoincrement())
-  data         DateTime
-  hora         String
+  dataHora     DateTime
   status       String
   localizacao  String
 
@@ -58,5 +57,6 @@ model Agendamento {
   servicoId    Int
   servico      Servico   @relation(fields: [servicoId], references: [id])
 }
+
 
 

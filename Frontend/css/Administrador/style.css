@@ -418,3 +418,56 @@ tbody tr:nth-child(even) {
 .modal.active {
   display: flex; /* ou block */
 }
+
+/* ============================= */
+/* Botões de ação (confirmar / cancelar) */
+/* ============================= */
+
+.btn-success {
+  background-color: var(--color-primary);
+  border: none;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 5px rgba(63, 46, 23, 0.2);
+}
+
+.btn-success:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(63, 46, 23, 0.3);
+}
+
+/* Botão de cancelar (vermelho com harmonia ao tema) */
+.btn-danger {
+  background-color: #b94b4b;
+  border: none;
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 5px rgba(185, 75, 75, 0.2);
+}
+
+.btn-danger:hover {
+  background-color: #953c3c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(149, 60, 60, 0.3);
+}
+
+
+/* ============================= */
+/* Tamanho e ícone */
+/* ============================= */
+
+.btn-sm {
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn i {
+  font-size: 1rem;
+}
