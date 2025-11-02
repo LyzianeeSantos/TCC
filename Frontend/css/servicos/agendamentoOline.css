@@ -235,38 +235,37 @@
 }
 
 @media (max-width: 767px) {
+
+    /* Ajustes do hero */
     .hero {
-        margin-top: 60px; /* Add space for the title that breaks out */
-        padding: 30px;
+        margin-top: 0;
+        padding: 20px; 
+        border-radius: 0; 
     }
-    
+
     .hero-text {
-        margin-top: -60px; /* Adjust for mobile */
+        margin-top: 0; 
     }
-    
-    .hero-title {
-        font-size: 48px;
-    }
-    
-    .slash {
-        font-size: 40px;
-    }
-    
-    .service-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .card-container {
-        height: 280px;
-    }
-    
+
+    /* Services Tabs continua como você já ajustou */
     .service-tabs {
+        display: flex;
+        flex-wrap: nowrap;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        scrollbar-width: none; /* Firefox */
+        scrollbar-width: none;
+        gap: 8px;
     }
-    
+
     .service-tabs::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Edge */
+        display: none;
     }
+
+    .tab-button {
+        flex: 0 0 auto;
+        padding: 8px 12px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
 }

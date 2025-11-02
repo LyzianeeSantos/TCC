@@ -261,14 +261,36 @@ tbody tr:nth-child(even) {
     gap: 1rem;
   }
 
-  .table-container {
+.table-container {
     font-size: 0.875rem;
+    overflow-x: auto; /* permite scroll horizontal */
+    -webkit-overflow-scrolling: touch; /* suaviza o scroll no iOS */
+    width: 100%;
   }
 
-  th,
-  td {
-    padding: 0.5rem;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* força largura mínima para não quebrar colunas */
   }
+
+  th, td {
+    padding: 0.5rem;
+    white-space: nowrap; /* evita quebras estranhas de texto */
+    text-align: left;
+  }
+
+  thead {
+    background-color: var(--color-primary-dark);
+    color: var(--color-white);
+  }
+
+  /* Botões de ação dentro da tabela */
+  td .action-button {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }
+
 }
 
 
