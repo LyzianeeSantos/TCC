@@ -1,4 +1,5 @@
 import { showAlert } from '../../alert/alert.js'
+import { mascaraTelefone } from '../../mascara/telefone.js'
 
 document.addEventListener('painelCarregado', function () {
   const btnConsultar = document.getElementById('btn-consultar')
@@ -54,7 +55,7 @@ document.addEventListener('painelCarregado', function () {
       const dataHoraObj = new Date(agendamento.dataHora)
       const dataFormatada = dataHoraObj.toLocaleDateString('pt-BR')
       const horaFormatada = dataHoraObj.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
-      const servicoCompleto = `${agendamento.servico.nome} - ${agendamento.servico.descricao}`
+      const servicoCompleto = agendamento.servico.nome
       const preco = agendamento.servico.preco
       const precoFormatado = `R$ ${preco.toFixed(2).replace('.', ',')}`
 
@@ -62,12 +63,12 @@ document.addEventListener('painelCarregado', function () {
 
       row.innerHTML = `
         <td>${agendamento.cliente.nome}</td>
+        <td>${mascaraTelefone(agendamento.cliente.telefone)}</td>
         <td>${servicoCompleto}</td>
         <td>${dataFormatada} ${horaFormatada}</td>
         <td>${agendamento.localizacao}</td>
         <td>${precoFormatado}</td>
-        <td>
-          <button class="action-btn btn btn-success btn-sm" data-id="${agendamento.id}" data-action="confirm"><i class="bi bi-check"></i></button>
+        <td> 
           <button class="action-btn btn btn-danger btn-sm" data-id="${agendamento.id}" data-action="cancel"><i class="bi bi-x"></i></button>
         </td>
       `
@@ -148,10 +149,7 @@ document.addEventListener('painelCarregado', function () {
         const id = this.dataset.id
         const action = this.dataset.action
 
-        if (action === 'confirm') {
-          // Aqui você pode chamar PATCH para atualizar status
-          showAlert('Agendamento confirmado!', 'sucess')
-        } else if (action === 'cancel') {
+        if (action === 'cancel') {
           if (confirm('Tem certeza que deseja cancelar este agendamento?')) {
             try {
               const usuario = JSON.parse(localStorage.getItem('usuario'))
