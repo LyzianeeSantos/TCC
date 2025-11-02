@@ -33,7 +33,6 @@ async function fetchAvaliacoes() {
 
 function initTestimonialCarousel(avaliacoes) {
     const carouselContainer = document.querySelector('.testimonial-carousel')
-    console.log('Container do carrossel:', carouselContainer)
     if (!carouselContainer) return
 
     carouselContainer.innerHTML = ''
