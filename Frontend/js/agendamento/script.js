@@ -6,11 +6,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const dadosSalvos = JSON.parse(localStorage.getItem('servicoSelecionado'))
     const calendarDays = document.getElementById('calendarDays')
     const calendarMonth = document.querySelector('.calendar-month')
-    const timeSlots = document.querySelectorAll('.time-slot')
     const prevMonthBtn = document.getElementById('prevMonth')
     const nextMonthBtn = document.getElementById('nextMonth')
     const availabilityText = document.querySelector('.availability-text')
     const btnConfirm = document.querySelector('.btn-confirm')
+    const timeSlotsContainer = document.getElementById('timeSlots')
+    const showAllBtn = document.querySelector('.show-all-btn')
 
     const currentDate = new Date()
     let currentYear = currentDate.getFullYear()
@@ -18,7 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectedDay = currentDate.getDate()
     let selectedMonth = currentMonth
     let selectedYear = currentYear
-    let selectedTime = '13:00'
+    let selectedTime = '07:00'
+    let mostrandoManha = true // false = tarde, true = manhã
 
     const monthNames = [
         'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
@@ -32,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('.service-duration').textContent = dadosSalvos.duracao
         document.querySelector('.service-price').textContent = dadosSalvos.preco
         document.querySelector('.service-location').textContent = `Loc: ${dadosSalvos.unidade}`
+
+        document.getElementById('total-pagamento').textContent = `R$ ${dadosSalvos.preco}`; 
     }
 
     // ----------- Função para gerar calendário -----------
@@ -42,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const firstDay = new Date(year, month, 1).getDay()
         const daysInMonth = new Date(year, month + 1, 0).getDate()
 
-        // Dias vazios do início do mês
         for (let i = 0; i < firstDay; i++) {
             const emptyDay = document.createElement('div')
             emptyDay.className = 'day empty'
@@ -97,30 +100,56 @@ document.addEventListener('DOMContentLoaded', function () {
         generateCalendar(currentMonth, currentYear)
     })
 
-    // ----------- Seleção de horários -----------
-    timeSlots.forEach(slot => {
-        if (slot.dataset.time === selectedTime) slot.classList.add('selected')
+    // ----------- Função para gerar horários -----------
+    function gerarHorarios() {
+        const horarios = mostrandoManha
+            ? ['07:00','07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00']
+            : ['13:00','13:30','14:00','14:30','15:00','15:30','16:00','17:00']
 
-        slot.addEventListener('click', function () {
-            timeSlots.forEach(s => s.classList.remove('selected'))
-            this.classList.add('selected')
-            selectedTime = this.dataset.time
+        timeSlotsContainer.innerHTML = ''
 
-            const formattedDate = `${selectedDay} de ${monthNames[selectedMonth].toLowerCase()} de ${selectedYear}`
-            document.querySelector('.service-date').textContent = `${formattedDate} às ${selectedTime}`
+        horarios.forEach(hora => {
+            const btn = document.createElement('button')
+            btn.classList.add('time-slot')
+            btn.dataset.time = hora
+            btn.textContent = hora
+
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'))
+                this.classList.add('selected')
+                selectedTime = this.dataset.time
+
+                const formattedDate = `${selectedDay} de ${monthNames[selectedMonth].toLowerCase()} de ${selectedYear}`
+                document.querySelector('.service-date').textContent = `${formattedDate} às ${selectedTime}`
+            })
+
+            if (hora === selectedTime) btn.classList.add('selected')
+
+            timeSlotsContainer.appendChild(btn)
         })
+
+        showAllBtn.textContent = mostrandoManha
+            ? 'Mostrar horários da tarde'
+            : 'Mostrar horários da manhã'
+
+        // Atualiza horários ocupados
+        const dataISO = `${selectedYear}-${String(selectedMonth + 1).padStart(2,'0')}-${String(selectedDay).padStart(2,'0')}`
+        marcarHorariosIndisponiveis(dataISO, dadosSalvos.unidade)
+    }
+
+    showAllBtn.addEventListener('click', () => {
+        mostrandoManha = !mostrandoManha
+        gerarHorarios()
     })
 
-    document.querySelector('.show-all-btn').addEventListener('click', () => {
-        alert('Mostrar todos os horários não implementado nesta demonstração')
-    })
+    // Inicializa horários
+    gerarHorarios()
 
     // ----------- Função confirmar agendamento -----------
     async function confirmarAgendamento() {
         try {
             const usuarioStorage = localStorage.getItem('usuario')
             const usuario = usuarioStorage ? JSON.parse(usuarioStorage) : null
-            console.log("session do usuario:", localStorage)
             const token = usuario?.token
             if (!token) { showAlert('Erro: token não encontrado. Faça login novamente.', 'error'); return }
             if (!dadosSalvos) { showAlert('Erro: nenhum serviço selecionado.', 'error'); return }
@@ -136,8 +165,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 localizacao: dadosSalvos.unidade
             }
 
-            console.log("Enviando body:", body)
-
             const response = await fetch('http://localhost:3000/agendamentos', {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
@@ -146,13 +173,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 const erro = await response.json()
-                console.error("Erro:", erro)
                 showAlert(erro.error || response.statusText, 'error')
                 return
             }
 
             const resultado = await response.json()
-            console.log("Agendamento cadastrado com sucesso:", resultado)
             showAlert("Agendamento confirmado com sucesso!", 'success')
 
             setTimeout(() => window.location.href = 'index.html', 1800)
@@ -176,12 +201,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 `http://localhost:3000/agendamentos?data=${dataSelecionada}`,
                 { headers: { 'Authorization': `Bearer ${token}` } }
             )
-            
+
             if (!response.ok) throw new Error('Erro ao buscar horários')
 
             const agendamentos = await response.json()
-
-            console.log("horarios marcados:", agendamentos)
 
             document.querySelectorAll('.time-slot').forEach(slot => {
                 slot.classList.remove('ocupado')
@@ -189,8 +212,8 @@ document.addEventListener('DOMContentLoaded', function () {
             })
 
             agendamentos.forEach(a => {
-                const dateObj = new Date(a.dataHora) // Converte string ISO para Date
-                const agendamentoHora = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) // HH:MM local
+                const dateObj = new Date(a.dataHora)
+                const agendamentoHora = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                 const slot = document.querySelector(`.time-slot[data-time="${agendamentoHora}"]`)
                 if (slot) {
                     slot.classList.add('ocupado')
@@ -211,5 +234,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelector('.service-date').textContent = `${initialFormattedDate} às ${selectedTime}`
 
     // Carrega horários ocupados iniciais
-    marcarHorariosIndisponiveis(`${selectedYear}-${String(selectedMonth + 1).padStart(2, '0')}-${String(selectedDay).padStart(2, '0')}`, dadosSalvos.unidade)
+    const dataISOInit = `${selectedYear}-${String(selectedMonth + 1).padStart(2,'0')}-${String(selectedDay).padStart(2,'0')}`
+    marcarHorariosIndisponiveis(dataISOInit, dadosSalvos.unidade)
+
 })
