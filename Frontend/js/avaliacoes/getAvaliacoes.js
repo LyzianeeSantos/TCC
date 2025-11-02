@@ -1,5 +1,5 @@
 
-document.addEventListener('DOMContentLoaded', async function () {
+window.addEventListener('load', async function () {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault()
@@ -33,6 +33,7 @@ async function fetchAvaliacoes() {
 
 function initTestimonialCarousel(avaliacoes) {
     const carouselContainer = document.querySelector('.testimonial-carousel')
+    console.log('Container do carrossel:', carouselContainer)
     if (!carouselContainer) return
 
     carouselContainer.innerHTML = ''
