@@ -13,15 +13,15 @@ app.use('/agendamentos', agendamentoRoutes);
 
 let token;
 let agendamentoId;
-const clienteId = 3; // Certifique-se que exista no DB
-const servicoId = 1;
+const clienteId = 12 // Certifique-se que exista no DB
+const servicoId = 2; // Certifique-se que exista no DB
 
 // Gera o token antes dos testes
 beforeAll(async () => {
   const loginResponse = await request(app)
-    .post('/usuarios/login') 
+    .post('/usuarios/login')
     .send({
-      email: 'lyzi@example.com', 
+      email: 'lyzi@example.com',
       senha: 'senha123',
     });
 
@@ -30,12 +30,15 @@ beforeAll(async () => {
 
 describe('Testes das rotas de Agendamento', () => {
   test('Deve criar um novo agendamento', async () => {
+    const dataFutura = new Date()
+    dataFutura.setDate(dataFutura.getDate() + 1) // amanhã
+    dataFutura.setHours(10, 0, 0, 0) // 10:00
+
     const response = await request(app)
       .post('/agendamentos')
       .set('Authorization', `Bearer ${token}`)
       .send({
-        data: new Date(),
-        hora: '10:00',
+        dataHora: dataFutura.toISOString(), // envia como ISO string
         status: 'pendente',
         clienteId,
         servicoId,

@@ -30,6 +30,7 @@ describe('Testes das rotas de Serviço', () => {
         nome: 'Teste Serviço',
         descricao: 'Descrição do serviço teste',
         preco: 150.50,
+        duracaoMin: 60,
       });
 
     expect(response.statusCode).toBe(201);
