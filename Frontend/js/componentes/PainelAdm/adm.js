@@ -38,7 +38,7 @@ document.addEventListener('painelCarregado', function () {
       renderAppointments(data)
     } catch (error) {
       console.error(error)
-      appointmentsTable.innerHTML = `<tr><td colspan="6">Erro ao carregar dados.</td></tr>`
+      appointmentsTable.innerHTML = `<tr><td colspan="7">Erro ao carregar dados.</td></tr>`
     } finally {
       hideLoading()
     }
@@ -133,7 +133,7 @@ document.addEventListener('painelCarregado', function () {
   function showNoResults() {
     const noResultsRow = document.createElement('tr')
     noResultsRow.innerHTML = `
-      <td colspan="6" style="text-align: center; padding: 2rem; color: #99805b;">
+      <td colspan="7" style="text-align: center; padding: 2rem; color: #99805b;">
         <i class="bi bi-search"></i><br>
         Nenhum agendamento encontrado com os filtros aplicados.
       </td>
