@@ -110,17 +110,32 @@ document.addEventListener('painelCarregado', function () {
 
       // === Filtro por unidade ===
       if (unit) {
-        const normalizedRowUnit = rowUnit.replace('unidade', '').trim() // "unidade 1" → "1"
+        const normalizedRowUnit = rowUnit.replace('unidade', '').trim()
         if (normalizedRowUnit !== unit) matches = false
       }
 
       return matches
     })
 
+    // === Atualiza a tabela ===
     appointmentsTable.innerHTML = ''
     filteredRows.forEach(row => appointmentsTable.appendChild(row.cloneNode(true)))
     attachActionButtonListeners()
 
+    // === Atualiza o total ===
+    let total = 0
+    filteredRows.forEach(row => {
+      const precoTexto = row.cells[5]?.textContent || 'R$ 0,00'
+      const preco = parseFloat(precoTexto.replace('R$', '').replace('.', '').replace(',', '.').trim())
+      total += isNaN(preco) ? 0 : preco
+    })
+
+    const totalBalance = document.getElementById('total-balance')
+    if (totalBalance) {
+      totalBalance.textContent = `Saldo total: R$ ${total.toFixed(2).replace('.', ',')}`
+    }
+
+    // === Caso não haja resultados ===
     if (filteredRows.length === 0) showNoResults()
   }
 
