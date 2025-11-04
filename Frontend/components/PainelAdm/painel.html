@@ -8,8 +8,8 @@
             </button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="servicos-tab" data-bs-toggle="tab" data-bs-target="#servicos"
-                type="button" role="tab" aria-controls="servicos" aria-selected="false">
+            <button class="nav-link" id="servicos-tab" data-bs-toggle="tab" data-bs-target="#servicos" type="button"
+                role="tab" aria-controls="servicos" aria-selected="false">
                 <i class="bi bi-plus-circle"></i> Serviços
             </button>
         </li>
@@ -47,10 +47,14 @@
                 <div class="filter-group">
                     <label for="unit">Unidade</label>
                     <div class="filter-input">
-                        <input id="unit" type="text" placeholder="Selecione a unidade">
-                        <i class="bi bi-search filter-icon"></i>
+                        <select id="unit">
+                            <option value="">Todos</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
                     </div>
                 </div>
+
             </div>
 
             <!-- Filter Actions -->

@@ -87,23 +87,32 @@ document.addEventListener('painelCarregado', function () {
   // ======== Filtros ========
   function filterAppointments() {
     const clientName = clientNameInput.value.toLowerCase().trim()
-    const dateFilter = dateFilterInput.value
-    const unit = unitInput.value.toLowerCase().trim()
+    const dateFilter = dateFilterInput.value // formato yyyy-mm-dd
+    const unit = unitInput.value.trim()
 
     let filteredRows = originalRows.filter(row => {
       const rowClientName = row.cells[0].textContent.toLowerCase()
-      const rowDate = row.cells[2].textContent
-      const rowUnit = row.cells[3].textContent.toLowerCase()
+      const rowDateTime = row.cells[3].textContent // ex: "04/11/2025 14:00"
+      const rowUnit = row.cells[4].textContent.toLowerCase()
 
       let matches = true
 
+      // === Filtro por nome ===
       if (clientName && !rowClientName.includes(clientName)) matches = false
+
+      // === Filtro por data ===
       if (dateFilter) {
-        const filterDate = new Date(dateFilter).toDateString()
-        const rowDateOnly = new Date(rowDate.split(' ')[0]).toDateString()
-        if (rowDateOnly !== filterDate) matches = false
+        const [dia, mes, ano] = rowDateTime.split(' ')[0].split('/') // separa "04/11/2025"
+        const rowDateISO = `${ano}-${mes}-${dia}` // transforma em "2025-11-04"
+
+        if (rowDateISO !== dateFilter) matches = false
       }
-      if (unit && !rowUnit.includes(unit)) matches = false
+
+      // === Filtro por unidade ===
+      if (unit) {
+        const normalizedRowUnit = rowUnit.replace('unidade', '').trim() // "unidade 1" → "1"
+        if (normalizedRowUnit !== unit) matches = false
+      }
 
       return matches
     })
