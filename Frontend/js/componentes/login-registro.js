@@ -1,6 +1,7 @@
 import { showAlert } from '../alert/alert.js'
 import { atualizarNavbar } from '../auth.js'
-import {parseJwt} from '../global/token/extraiId.js'
+import { parseJwt } from '../global/token/extraiId.js'
+import { mascaraTelefoneDigita } from '../mascara/telefone.js'
 
 export function loadLogin() {
   function waitForElement(selector, timeout = 5000) {
@@ -136,8 +137,15 @@ export function loadLogin() {
               }
             })
 
-            // 📌 CADASTRO
             const formCadastro = modal.querySelector('#formCadastro')
+
+            const inputCelular = modal.querySelector('#celular')
+            if (inputCelular) {
+              inputCelular.addEventListener('input', e => {
+                e.target.value = mascaraTelefoneDigita(e.target.value)
+              })
+            }
+
             formCadastro?.addEventListener('submit', async e => {
               e.preventDefault()
 

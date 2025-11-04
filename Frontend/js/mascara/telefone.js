@@ -19,3 +19,27 @@ export function mascaraTelefone(valor) {
     return valor.replace(/^(\d{2})(\d{5})(\d{0,4})/, '$1 $2-$3')
   }
 }
+
+export function mascaraTelefoneDigita(valor) {
+  if (!valor) return ''
+
+  // Remove tudo que não for número
+  valor = valor.replace(/\D/g, '')
+
+  // Limita a no máximo 11 dígitos (2 do DDD + 9 do número)
+  valor = valor.substring(0, 11)
+
+  // Aplica a máscara progressivamente
+  if (valor.length > 2 && valor.length <= 7) {
+    // (67) 9903
+    valor = valor.replace(/^(\d{2})(\d{0,5})/, '($1) $2')
+  } else if (valor.length > 7) {
+    // (67) 99030-0132
+    valor = valor.replace(/^(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3')
+  } else if (valor.length > 0) {
+    // (67
+    valor = valor.replace(/^(\d{0,2})/, '($1')
+  }
+
+  return valor
+}
