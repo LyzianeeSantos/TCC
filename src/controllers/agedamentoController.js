@@ -1,11 +1,10 @@
+const { enviarEmail } = require('../utils/emailService')
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 const createAgendamento = async (req, res) => {
   try {
-    const { dataHora, status, clienteId, servicoId, localizacao } = req.body;
-
-     console.log('[DEBUG] Body recebido:', req.body)
+    const { dataHora, status, clienteId, servicoId, localizacao } = req.body
 
     if (!localizacao || (localizacao !== 'Unidade 1' && localizacao !== 'Unidade 2')) {
       return res.status(400).json({ error: 'Localização inválida. Escolha entre "Unidade 1" ou "Unidade 2"' })
@@ -33,7 +32,38 @@ const createAgendamento = async (req, res) => {
         servicoId,
         localizacao
       },
+      include: { cliente: true, servico: true }
     })
+
+    if (novo.cliente?.email) {
+      const assunto = 'Confirmação de Agendamento - Alcione Depiladora'
+      const mensagem = `
+      <h2>Olá ${novo.cliente.nome},</h2>
+      <p>Seu agendamento foi <b>confirmado com sucesso!</b> ✨</p>
+      <p>
+        <b>Serviço:</b> ${novo.servico?.nome || 'Serviço selecionado'} <br>
+        <b>Local:</b> ${novo.localizacao} <br>
+        <b>Data:</b> ${new Date(novo.dataHora).toLocaleDateString('pt-BR')} <br>
+        <b>Horário:</b> ${new Date(novo.dataHora).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+      </p>
+      <p>💖 Agradecemos a sua preferência!</p>
+      <p>Atenciosamente,<br><b>Equipe Alcione - Depiladora</b></p>
+      `
+
+      try {
+        console.log(`[INFO] Enviando e-mail de confirmação para ${novo.cliente.email}...`)
+        const enviado = await enviarEmail(novo.cliente.email, assunto, mensagem)
+
+        if (enviado)
+          console.log(`📧 E-mail enviado com sucesso para ${novo.cliente.email}`)
+        else
+          console.warn(`⚠️ Falha ao enviar e-mail para ${novo.cliente.email}`)
+      } catch (erroEmail) {
+        console.error('❌ Erro ao enviar e-mail:', erroEmail)
+      }
+    } else {
+      console.warn('⚠️ Cliente sem e-mail cadastrado — e-mail não enviado.')
+    }
 
     res.status(201).json(novo)
   } catch (err) {
@@ -51,8 +81,8 @@ const getAllAgendamentos = async (req, res) => {
     if (data) {
       const inicio = new Date(data)
       const fim = new Date(data)
-      inicio.setUTCHours(0,0,0,0)
-      fim.setUTCHours(23,59,59,999)
+      inicio.setUTCHours(0, 0, 0, 0)
+      fim.setUTCHours(23, 59, 59, 999)
       where.dataHora = { gte: inicio, lte: fim }
     }
 
