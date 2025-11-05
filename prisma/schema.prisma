@@ -21,6 +21,9 @@ model Usuario {
   senha         String
   tipo          String         @default("cliente") // 'cliente' ou 'admin'
 
+  resetToken       String?        // Token temporário para redefinir senha
+  resetTokenExpira DateTime?      // Data/hora de expiração do token
+
   agendamentos  Agendamento[]  @relation("UsuarioAgendamentos")
   avaliacoes    Avaliacao[]   // Relacionamento com avaliações
  }

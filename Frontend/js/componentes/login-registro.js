@@ -174,6 +174,49 @@ export function loadLogin() {
                 showAlert('❌ Erro ao tentar cadastrar. Tente novamente mais tarde.', 'danger')
               }
             })
+
+            const forgotLink = modal.querySelector('.forgot')
+            const forgotModal = document.getElementById('forgotModal')
+
+            if (forgotLink && forgotModal) {
+              const forgotClose = forgotModal.querySelector('.close')
+
+              forgotLink.addEventListener('click', e => {
+                e.preventDefault()
+                modal.classList.remove('show')
+                forgotModal.classList.add('show')
+              })
+
+              forgotClose.addEventListener('click', () => {
+                forgotModal.classList.remove('show')
+              })
+
+              const formForgot = forgotModal.querySelector('#formForgot')
+              formForgot.addEventListener('submit', async e => {
+                e.preventDefault()
+                const email = document.getElementById('forgotEmail').value
+
+                try {
+                  const res = await fetch('http://localhost:3000/usuarios/recuperar-senha', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                  })
+
+                  const data = await res.json()
+                  if (res.ok) {
+                    showAlert('📨 Um e-mail de recuperação foi enviado!', 'success')
+                    forgotModal.classList.remove('show')
+                  } else {
+                    showAlert(`⚠️ ${data.error || 'Erro ao enviar e-mail.'}`, 'warning')
+                  }
+                } catch (err) {
+                  console.error(err)
+                  showAlert('❌ Erro ao processar solicitação.', 'danger')
+                }
+              })
+            }
+
           })
           .catch(error => {
             console.error('Error loading login:', error)

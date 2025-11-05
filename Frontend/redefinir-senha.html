@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redefinir Senha - Alcione</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login/login-registro.css"> <!-- Pode usar o mesmo estilo -->
+</head>
+
+<body>
+    <div id="resetContainer" class="modal show">
+        <div class="login-content-forgot">
+            <div class="login-header">
+                <h2>Redefinir Senha</h2>
+            </div>
+            <div class="login-body">
+                <p>Digite sua nova senha abaixo:</p>
+                <form id="resetForm">
+                    <label for="novaSenha">Nova senha</label>
+                    <input type="password" id="novaSenha" placeholder="Digite sua nova senha" required>
+
+                    <label for="confirmarSenha">Confirmar senha</label>
+                    <input type="password" id="confirmarSenha" placeholder="Confirme sua nova senha" required>
+
+                    <button type="submit" class="login-btn">Redefinir Senha</button>
+                </form>
+                <p id="mensagem" class="mensagem"></p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./js/componentes/redefinir-senha.js"></script>
+</body>
+
+</html>

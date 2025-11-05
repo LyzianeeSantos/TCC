@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 require('dotenv').config();
 
 // Importar rotas
@@ -16,6 +17,8 @@ const PORT = process.env.PORT || 3000;
 // Middlewares
 app.use(cors());
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, '../Frontend')));
 
 // Rotas
 app.use('/agendamentos', agendamentoRoutes);

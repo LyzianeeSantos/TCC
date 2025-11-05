@@ -22,7 +22,7 @@
                         <label for="senha">Senha</label>
                         <input type="password" id="senha" placeholder="Digite sua senha">
 
-                        <!-- <a href="#" class="forgot">Esqueceu a senha?</a> -->
+                        <a href="#" class="forgot">Esqueceu a senha?</a>
 
                         <button type="submit" class="login-btn">Login</button>
                     </form>
@@ -66,4 +66,19 @@
     </div>
 </div>
 
-
+<div id="forgotModal" class="modal">
+  <div class="login-content-forgot">
+    <div class="login-header">
+      <h2>Recuperar Senha</h2>
+      <span class="close">&times;</span>
+    </div>
+    <div class="login-body">
+      <p>Digite seu e-mail cadastrado para receber um link de redefinição:</p>
+      <form id="formForgot">
+        <label for="forgotEmail">Email</label>
+        <input type="email" id="forgotEmail" placeholder="Digite seu email" required>
+        <button type="submit" class="login-btn">Enviar</button>
+      </form>
+    </div>
+  </div>
+</div>

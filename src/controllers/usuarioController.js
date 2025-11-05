@@ -1,7 +1,9 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const prisma = new PrismaClient();
+const { enviarEmail } = require('../utils/emailService');
 
 const SECRET = process.env.JWT_SECRET || 'segredo123';
 
@@ -46,6 +48,78 @@ const login = async (req, res) => {
     res.status(500).json({ error: 'Erro no login', details: err.message });
   }
 };
+
+const recuperarSenha = async (req, res) => {
+  const { email } = req.body
+
+  try {
+    const usuario = await prisma.usuario.findUnique({ where: { email } })
+    if (!usuario) return res.status(404).json({ error: 'E-mail não cadastrado.' })
+
+    // Gera token temporário
+    const token = crypto.randomBytes(20).toString('hex')
+    const expiracao = new Date(Date.now() + 3600000) // 1 hora
+
+    await prisma.usuario.update({
+      where: { email },
+      data: { resetToken: token, resetTokenExpira: expiracao }
+    })
+
+    const resetLink = `http://localhost:3000/redefinir-senha.html?token=${token}`
+
+    const mensagem = `
+      <h2>Olá ${usuario.nome},</h2>
+      <p>Você solicitou a redefinição da sua senha.</p>
+      <p>Clique no link abaixo para redefinir:</p>
+      <p><a href="${resetLink}" target="_blank">${resetLink}</a></p>
+      <p>⚠️ O link expira em 1 hora.</p>
+      <p>Atenciosamente,<br><b>Equipe Alcione - Depiladora</b></p>
+    `
+
+    await enviarEmail(email, 'Recuperação de Senha - Alcione Depiladora', mensagem)
+
+    res.json({ message: 'E-mail de recuperação enviado com sucesso!' })
+  } catch (err) {
+    console.error('Erro ao enviar e-mail de recuperação:', err)
+    res.status(500).json({ error: 'Erro ao enviar e-mail de recuperação.' })
+  }
+}
+
+const redefinirSenha = async (req, res) => {
+  const { token, novaSenha } = req.body;
+
+  try {
+    const usuario = await prisma.usuario.findFirst({
+      where: {
+        resetToken: token,
+        resetTokenExpira: {
+          gt: new Date()
+        }
+      }
+    });
+
+    if (!usuario) {
+      return res.status(400).json({ error: 'Token inválido ou expirado.' });
+    }
+
+    const hash = await bcrypt.hash(novaSenha, 10);
+
+    await prisma.usuario.update({
+      where: { id: usuario.id },
+      data: {
+        senha: hash,
+        resetToken: null,
+        resetTokenExpira: null
+      }
+    });
+
+    res.json({ message: 'Senha redefinida com sucesso!' });
+  } catch (err) {
+    console.error('Erro ao redefinir senha:', err);
+    res.status(500).json({ error: 'Erro ao redefinir senha.' });
+  }
+};
+
 
 // Buscar todos os usuários do tipo cliente
 const getAllClientes = async (req, res) => {
@@ -102,6 +176,8 @@ const deleteCliente = async (req, res) => {
 module.exports = {
   registrar,
   login,
+  recuperarSenha,
+  redefinirSenha,
   getAllClientes,
   getClienteById,
   updateCliente,

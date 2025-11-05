@@ -3,6 +3,8 @@ const router = express.Router();
 const {
   registrar,
   login,
+  recuperarSenha,
+  redefinirSenha,
   getAllClientes,
   getClienteById,
   updateCliente,
@@ -12,6 +14,8 @@ const {
 // Registro e login
 router.post('/registrar', registrar);
 router.post('/login', login);
+router.post('/recuperar-senha', recuperarSenha);
+router.post('/redefinir-senha', redefinirSenha);
 
 // Rotas de cliente
 router.get('/clientes', getAllClientes);
