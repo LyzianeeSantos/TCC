@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (!response.ok) {
                 const erro = await response.json()
-                showAlert(erro.error || response.statusText, 'error')
+                showAlert(erro.error || response.statusText, 'warning')
                 return
             }
 
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         } catch (err) {
             console.error("Erro inesperado:", err)
-            showAlert("Erro inesperado ao cadastrar agendamento.", 'error')
+            showAlert("Erro inesperado ao cadastrar agendamento.", 'warning')
         }
     }
 

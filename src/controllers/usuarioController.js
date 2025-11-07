@@ -12,6 +12,20 @@ const registrar = async (req, res) => {
   try {
     const { nome, email, telefone, senha, tipo } = req.body;
 
+     // 🔐 Validação: nenhum campo pode estar vazio
+    if (!nome || !email || !telefone || !senha) {
+      return res.status(400).json({ error: 'Todos os campos são obrigatórios!' });
+    }
+
+    if (senha.length < 6) {
+      return res.status(400).json({ error: 'A senha deve ter no mínimo 6 caracteres.' });
+    }
+
+    const usuarioExiste = await prisma.usuario.findUnique({ where: { email } });
+    if (usuarioExiste) {
+      return res.status(400).json({ error: 'E-mail já cadastrado!' });
+    }
+
     const hash = await bcrypt.hash(senha, 10);
 
     const usuario = await prisma.usuario.create({
