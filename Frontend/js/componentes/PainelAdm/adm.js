@@ -187,7 +187,7 @@ document.addEventListener('painelCarregado', function () {
               if (!response.ok) throw new Error('Erro ao cancelar agendamento')
 
               this.closest('tr').remove()
-              showAlert('Agendamento cancelado com sucesso!', 'sucess')
+              showAlert('Agendamento cancelado com sucesso!', 'success')
             } catch (err) {
               console.error(err)
               showAlert('Erro ao cancelar agendamento', 'error')

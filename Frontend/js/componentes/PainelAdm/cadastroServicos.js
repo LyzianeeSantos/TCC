@@ -1,3 +1,5 @@
+import { showAlert } from '../../alert/alert.js'
+
 document.addEventListener('servicosCarregado', () => {
 
   const newServiceBtn = document.getElementById('newServiceBtn')
@@ -91,7 +93,16 @@ document.addEventListener('servicosCarregado', () => {
     })
 
     closeModal(serviceModal)
+    
     renderServices()
+
+    if (editingServiceId) {
+      showAlert('Serviço atualizado com sucesso!', 'success')
+    } else {
+      showAlert('Serviço cadastrado com sucesso!', 'success')
+    }
+
+    editingServiceId = null
   })
 
 
@@ -124,6 +135,7 @@ document.addEventListener('servicosCarregado', () => {
       serviceToDelete = null
       closeModal(confirmModal)
       renderServices()
+      showAlert('Serviço excluído com sucesso!', 'success')
     }
   })
 
