@@ -61,6 +61,10 @@ nav a:hover {
   gap: 0.5rem;
 }
 
+#confirmDeleteBtn {
+  padding: 0.5rem 1rem !important;
+}
+
 .btn-primary:hover {
   background-color: rgba(63, 46, 23, 0.9);
 }
