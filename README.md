@@ -65,7 +65,7 @@ backend/
 
 4. **Inicie o servidor:**
 
-    node src/server.js
+    npm run dev
 
 5. **Acesse no navegador:**
 
